@@ -4,10 +4,10 @@
 #Writes a respondents results to a single line of a "response.txt" dump file.
 #
 
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def survey():
+    return render_template('survey.html', names=["name1","name2","name3"])
