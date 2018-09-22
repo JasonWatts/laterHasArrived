@@ -2,9 +2,18 @@
 <html>
 <body>
 
-{% for name in names %}
-  {{name}}<br>
-{% endfor %}
+<form action="" method="post" novalidate>
+  {{ form.hidden_tag() }}
+  <p>
+    <b>{{ form.name.label }}</b><br>
+    {{ form.name(size=1) }}
+  </p>
+  <p>
+    <b>{{ form.choices.label }}</b><br>
+    {{ form.choices(size=form.n_choices) }}
+  </p>
+  <p>{{ form.submit() }}</p>
+</form>
 
 </body>
 </html>
