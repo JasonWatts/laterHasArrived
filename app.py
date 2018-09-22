@@ -16,3 +16,7 @@ def survey():
 def render_survey():
     return render_template('survey.html')
 
+@app_route('/manager')
+def render_survey():
+    return render_template('manager.html')
+
