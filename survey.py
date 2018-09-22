@@ -11,3 +11,8 @@ app = Flask(__name__)
 @app.route('/')
 def survey():
     return render_template('survey.html', names=["name1","name2","name3"])
+
+@app_route('/survey')
+def render_survey():
+    return render_template('survey.html')
+
