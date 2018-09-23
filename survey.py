@@ -15,7 +15,7 @@ app.config['SECRET_KEY'] = 'testing_key'
 SURVEY_TEMPLATE = "survey.html"
 NAME_FILE = "names.txt"
 
-names = open(NAME_FILE,'r').read().split('\n')
+names = open(NAME_FILE,'r').read().split('\n')[:-1] #Strip the last element, which will just be an empty string created by the last newline in the file.
 names_nospace = [name.strip() for name in names]
 
 #Checkbox input object, credit to https://gist.github.com/doobeh/4668212
@@ -28,7 +28,6 @@ class SurveyForm(Form):
     name = SelectField('Name', choices = list(zip(names,names_nospace)), validators = [InputRequired()])
     choices = MultiCheckboxField("Connections", choices = list(zip(names,names_nospace)), validators = [InputRequired()])
     submit = SubmitField('submit')
-    n_choices = len(names)-1
 
 @app.route('/', methods=['get','post'])
 def survey():
