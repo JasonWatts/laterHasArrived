@@ -12,7 +12,11 @@ from wtforms.validators import InputRequired
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
 
-NAMES = ["name1", "name2", "name3"] #TODO: Load from file.
+SURVEY_TEMPLATE = "survey.html"
+NAME_FILE = "names.txt"
+
+names = open(NAME_FILE,'r').read().split('\n')
+names_nospace = [name.strip() for name in names]
 
 #Checkbox input object, credit to https://gist.github.com/doobeh/4668212
 class MultiCheckboxField(SelectMultipleField):
@@ -21,10 +25,10 @@ class MultiCheckboxField(SelectMultipleField):
 
 #Class for the survey.
 class SurveyForm(Form):
-    name = SelectField('Name', choices = list(zip(NAMES,NAMES)), validators = [InputRequired()])
-    choices = MultiCheckboxField("Connections", choices = list(zip(NAMES,NAMES)), validators = [InputRequired()])
+    name = SelectField('Name', choices = list(zip(names,names_nospace)), validators = [InputRequired()])
+    choices = MultiCheckboxField("Connections", choices = list(zip(names,names_nospace)), validators = [InputRequired()])
     submit = SubmitField('submit')
-    n_choices = len(NAMES)
+    n_choices = len(names)-1
 
 @app.route('/', methods=['get','post'])
 def survey():
@@ -33,4 +37,4 @@ def survey():
         print(form.choices.data)
     else:
         print(form.errors)
-    return render_template('survey.html', form=form)
+    return render_template(SURVEY_TEMPLATE, form=form)
