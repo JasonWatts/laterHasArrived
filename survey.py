@@ -14,6 +14,7 @@ app.config['SECRET_KEY'] = 'testing_key'
 
 SURVEY_TEMPLATE = "survey.html"
 NAME_FILE = "names.txt"
+OUT_FILE = "response.txt"
 
 names = open(NAME_FILE,'r').read().split('\n')[:-1] #Strip the last element, which will just be an empty string created by the last newline in the file.
 names_nospace = [name.strip() for name in names]
@@ -33,7 +34,9 @@ class SurveyForm(Form):
 def survey():
     form = SurveyForm(request.form)
     if form.validate_on_submit():
-        print(form.choices.data)
+        with open(OUT_FILE, "a") as out:
+            out.write(f"{form.name.data}: {', '.join(form.choices.data)}\n")
+        return "Thank you for your response!"
     else:
         print(form.errors)
     return render_template(SURVEY_TEMPLATE, form=form)
