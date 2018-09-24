@@ -12,11 +12,9 @@ app = Flask(__name__)
 def survey():
     return render_template('survey.html', names=["name1","name2","name3"])
 
-@app_route('/survey')
-def render_survey():
-    return render_template('survey.html')
-
 @app_route('/manager')
-def render_survey():
-    return render_template('manager.html')
+def render_manager():
+   return render_template('manager.html')
 
+if __name__ == "__main__":
+    app.run()
