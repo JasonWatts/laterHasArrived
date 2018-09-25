@@ -40,3 +40,12 @@ def survey():
     else:
         print(form.errors)
     return render_template(SURVEY_TEMPLATE, form=form)
+
+@app.route('/manager')
+def render_manager():
+    run_all(names_file, intermediate_file, csv_name)
+
+    df = pd.read_csv(csv_name)
+    html = df.to_html()
+
+    return render(html)
