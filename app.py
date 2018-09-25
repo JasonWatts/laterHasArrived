@@ -49,3 +49,6 @@ def render_manager():
     html = df.to_html()
 
     return render(html)
+
+if __name__ == "__main__":
+    app.run()
