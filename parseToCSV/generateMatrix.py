@@ -128,4 +128,9 @@ def makeCSV(df, filePath):
     else:
         raise Exception("File name must be of type '.csv'")
     
-    
+
+def run_all(names_file, intermediate_file, csv_name):
+    parsed_file = parse(intermediate_file)
+    empty_df = initializeMatrix(names_file)
+    full_df = fillDF(empty_df, parsed_file)
+    makeCSV(full_df, csv_name)
