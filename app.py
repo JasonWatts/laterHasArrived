@@ -8,6 +8,8 @@ from flask import Flask, render_template, request
 from flask_wtf import Form
 from wtforms import widgets, SelectField, SelectMultipleField, SubmitField
 from wtforms.validators import InputRequired
+from parseToCSV import *
+import pandas as pd
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
@@ -15,6 +17,7 @@ app.config['SECRET_KEY'] = 'testing_key'
 SURVEY_TEMPLATE = "survey.html"
 NAME_FILE = "names.txt"
 OUT_FILE = "response.txt"
+CSV_NAME = "adjacency.csv"
 
 names = open(NAME_FILE,'r').read().split('\n')[:-1] #Strip the last element, which will just be an empty string created by the last newline in the file.
 names_nospace = [name.strip() for name in names]
@@ -43,12 +46,9 @@ def survey():
 
 @app.route('/manager')
 def render_manager():
-    run_all(names_file, intermediate_file, csv_name)
+    generateMatrix.run_all(NAME_FILE, OUT_FILE, CSV_NAME)
 
-    df = pd.read_csv(csv_name)
+    df = pd.read_csv(CSV_NAME)
     html = df.to_html()
 
-    return render(html)
-
-if __name__ == "__main__":
-    app.run()
+    return html
