@@ -52,3 +52,19 @@ def render_manager():
     html = df.to_html()
 
     return html
+
+
+@app.route("/download")
+def hello2():
+    return render_template('download.html')
+
+
+@app.route('/downloadCSV/')
+def download_csv():
+    with open(CSV_NAME) as csvFile:
+        makeCSV = csvFile.read()
+    response = make_response(makeCSV)
+    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    response.headers['Content-Disposition'] = cd
+    response.mimetype='text/csv'
+    return response
