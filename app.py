@@ -4,7 +4,7 @@
 #Writes a respondents results to a single line of a "response.txt" dump file.
 #
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 from flask_wtf import Form
 from wtforms import widgets, SelectField, SelectMultipleField, SubmitField
 from wtforms.validators import InputRequired
@@ -49,6 +49,17 @@ def render_manager():
     generateMatrix.run_all(NAME_FILE, OUT_FILE, CSV_NAME)
 
     df = pd.read_csv(CSV_NAME)
-    html = df.to_html()
+    html = df.to_html() +  '''<button type="download" onclick="window.open('/downloadCSV')">Download CSV</button>'''
 
     return html
+
+
+@app.route('/downloadCSV/')
+def download_csv():
+    with open(CSV_NAME) as csvFile:
+        makeCSV = csvFile.read()
+    response = make_response(makeCSV)
+    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    response.headers['Content-Disposition'] = cd
+    response.mimetype='text/csv'
+    return response
