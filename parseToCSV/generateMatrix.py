@@ -71,7 +71,7 @@ def initializeMatrix(txtFile):
     df = pd.DataFrame(0, index=content, columns=content)
     return df
     
-def fillDF(df, intermediateNames):
+def fillDF(df, intermediateNames, directional=False):
     """
     Fill dataframe df with information from intermediateNames.
     
@@ -100,8 +100,9 @@ def fillDF(df, intermediateNames):
     for keyName, value in intermediateNames.items():
         for valueName in value:
             #set both cells to 1 which show the relation between each name 
-            df.set_value(keyName, valueName, 1)
-            df.set_value(valueName, keyName, 1)
+            df.at[keyName, valueName] = 1
+            if not directional:
+                df.at[valueName, keyName] = 1
 
     return df
     
@@ -131,6 +132,9 @@ def makeCSV(df, filePath):
 
 def run_all(names_file, intermediate_file, csv_name):
     parsed_file = parse(intermediate_file)
-    empty_df = initializeMatrix(names_file)
-    full_df = fillDF(empty_df, parsed_file)
+    empty_df1 = initializeMatrix(names_file)
+    empty_df2 = initializeMatrix(names_file)
+    full_df = fillDF(empty_df1, parsed_file)
     makeCSV(full_df, csv_name)
+    directional_df = fillDF(empty_df2, parsed_file, directional=True)
+    makeCSV(directional_df, csv_name[:-4] + "_directional.csv")
