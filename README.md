@@ -17,7 +17,19 @@ Trevor
 Walker
 M'Kya
 
-
-# Installation
-
+# Getting started
+Clone the repository to a location of your choosing, then cd into the folder.
+```
+$ git clone https://github.com/JasonWatts/laterHasArrived.git
+$ cd laterHasArrived/
+```
+To start the program:
+```
+$ python3 app.py
+```
+The output should display a line similar to the following:
+```
+* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+```
+Finally copy and paste the URL displayed in your terminal into a browser.
 
