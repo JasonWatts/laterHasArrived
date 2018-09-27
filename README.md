@@ -33,3 +33,5 @@ The output should display a line similar to the following:
 ```
 Finally copy and paste the URL displayed in your terminal into a browser.
 
+# Admin view
+If you are an administrator and would like to view the adjacency matrix, type in "/manager" at the end of the current URL. This will pull up the manager view of the matrix that has been updated based on surveys recieved. You also will have the option to download a CSV file of the results.
