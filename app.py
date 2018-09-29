@@ -38,7 +38,7 @@ def survey():
     form = SurveyForm(request.form)
     if form.validate_on_submit():
         with open(OUT_FILE, "a") as out:
-            out.write(f"{form.name.data}: {', '.join(form.choices.data)}\n")
+            out.write("{}: {}\n".format(form.name.data, ', '.join(form.choices.data)))
         return "Thank you for your response!"
     else:
         print(form.errors)
