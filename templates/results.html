@@ -1,0 +1,12 @@
+<!doctype html>
+<html>
+<body>
+    <h1> {{ title }} </h1>
+    <h4> {{ question }} </h4>
+    <button type="download" onclick="window.open('/downloadCSV')">Download CSV</button>    
+    <button type="download" onclick="window.open('/downloadCSV-directional')">Download directional CSV</button>
+
+    {{ table | safe }}
+
+</body>
+</html>
