@@ -18,6 +18,7 @@ SURVEY_TEMPLATE = "survey.html"
 NAME_FILE = "names.txt"
 OUT_FILE = "response.txt"
 CSV_NAME = "adjacency.csv"
+CSV_DIRECTIONAL = "adjacency_directional.csv"
 
 names = open(NAME_FILE,'r').read().split('\n')[:-1] #Strip the last element, which will just be an empty string created by the last newline in the file.
 names_nospace = [name.strip() for name in names]
@@ -49,7 +50,7 @@ def render_manager():
     generateMatrix.run_all(NAME_FILE, OUT_FILE, CSV_NAME)
 
     df = pd.read_csv(CSV_NAME)
-    html = df.to_html() +  '''<button type="download" onclick="window.open('/downloadCSV')">Download CSV</button>'''
+    html = df.to_html() +  '''<button type="download" onclick="window.open('/downloadCSV')">Download CSV</button>''' + '''<button type="download" onclick="window.open('/downloadCSV-directional')">Download directional CSV</button>'''
 
     return html
 
@@ -63,6 +64,17 @@ def download_csv():
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
+
+@app.route('/downloadCSV-directional/')
+def download_csv_directional():
+    with open(CSV_DIRECTIONAL) as csvFile:
+        makeCSV = csvFile.read()
+    response = make_response(makeCSV)
+    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    response.headers['Content-Disposition'] = cd
+    response.mimetype='text/csv'
+    return response
+
 
 if __name__ == "__main__":
     app.run()
