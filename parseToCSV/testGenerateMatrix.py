@@ -35,28 +35,38 @@ class TestAdjMatrixTranslator(unittest.TestCase):
                        ]
     
     testFiles = ["test0.txt", "test1.txt", "test2.txt", "test3.txt", "test4.txt"]
-    checkFiles = ["check0.csv", "check1.csv", "check2.csv", "check3.csv", "check4.csv"]
+    checkSymmetricFiles = ["check0.csv", "check1.csv", "check2.csv", "check3.csv", "check4.csv"]
+    checkDirectionalFiles = ["d_check0.csv", "d_check1.csv", "d_check2.csv", "d_check3.csv", "d_check4.csv"]
     
     initialFiles = ["testGroup1.txt"]
     initialMatrices = ["emptyMatrixGroup1.csv"]
     
-    def testParse(self):
+    def test_parse(self):
         for i in range(len(self.testFiles)):
             test = os.path.join(self.scriptDir, self.relPath + self.testFiles[i])
             self.assertTrue(parse(test) == self.dictionaryTests[i])
     
-    def testInitialize(self):        
+    def test_initialize(self):        
         for i in range(len(self.initialMatrices)):
             test = os.path.join(self.scriptDir, self.relPath + self.initialFiles[i])
             check = os.path.join(self.scriptDir, self.relPath + self.initialMatrices[i])
             self.assertTrue(equalDF(initializeMatrix(test), pd.read_csv(check, header=0, index_col=0))) 
     
-    def testFillDF(self):       
-        for i in range(len(self.checkFiles)):
+    def test_fill_symmetric_df(self):       
+        files = self.checkSymmetricFiles
+        for i in range(len(files)):
             testMatrix = initializeMatrix(os.path.join(self.scriptDir, self.relPath + self.initialFiles[0]))
             testDict = self.dictionaryTests[i]
-            check = os.path.join(self.scriptDir, self.relPath + self.checkFiles[i])
+            check = os.path.join(self.scriptDir, self.relPath + files[i])
             self.assertTrue(equalDF(fillDF(testMatrix, testDict), pd.read_csv(check, header=0, index_col=0)))
+            
+    def test_fill_directional_df(self): 
+        files = self.checkDirectionalFiles
+        for i in range(len(files)):
+            testMatrix = initializeMatrix(os.path.join(self.scriptDir, self.relPath + self.initialFiles[0]))
+            testDict = self.dictionaryTests[i]
+            check = os.path.join(self.scriptDir, self.relPath + files[i])
+            self.assertTrue(equalDF(fillDF(testMatrix, testDict, directional=True), pd.read_csv(check, header=0, index_col=0)))
             
 
 unittest.main()
