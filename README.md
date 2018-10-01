@@ -4,6 +4,13 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 # Requirements
 
+In order to run this application you first need to pip3 install some libraries:
+
+```
+pip3 install pandas --user
+
+```
+
 # Contributors
 Christian
 Drew
