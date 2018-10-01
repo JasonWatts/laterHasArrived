@@ -29,8 +29,8 @@ class MultiCheckboxField(SelectMultipleField):
 
 #Class for the survey.
 class SurveyForm(Form):
-    name = SelectField('Name', choices = list(zip(names,names_nospace)), validators = [InputRequired()])
-    choices = MultiCheckboxField("Connections", choices = list(zip(names,names_nospace)), validators = [InputRequired()])
+    name = SelectField('Please select who you are. Type your name after clicking the drop down box!', choices = list(zip(names,names_nospace)), validators = [InputRequired()])
+    choices = MultiCheckboxField("Please select who you know", choices = list(zip(names,names_nospace)), validators = [InputRequired()])
     submit = SubmitField('submit')
 
 @app.route('/', methods=['get','post'])
