@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<form action="" method="post" novalidate>
+<form action="{{ redirectlink }}" method="post" novalidate>
   {{ form.hidden_tag() }}
   <p>
     <b>{{ form.name.label }}</b><br>
@@ -10,7 +10,7 @@
   </p>
   <p>
     <b>{{ questiontext }}</b><br>
-    {{ form.Choices() }}
+    {{ form.Choices }}
   </p>
   <p>{{ form.submit() }}</p>
 </form>
