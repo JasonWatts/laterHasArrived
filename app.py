@@ -15,6 +15,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
 
 SURVEY_TEMPLATE = "survey.html"
+RESULTS_TEMPLATE = "results.html"
 NAME_FILE = "names.txt"
 OUT_FILE = "response.txt"
 CSV_NAME = "adjacency.csv"
@@ -48,11 +49,15 @@ def survey():
 @app.route('/manager')
 def render_manager():
     generateMatrix.run_all(NAME_FILE, OUT_FILE, CSV_NAME)
-
+    
+    title="THIS IS A HARDCODED TITLE"
+    
+    question="IS THIS A HARDCODED QUESTION? (hint: yes)"
+    
     df = pd.read_csv(CSV_NAME)
-    html = df.to_html() +  '''<button type="download" onclick="window.open('/downloadCSV')">Download CSV</button>''' + '''<button type="download" onclick="window.open('/downloadCSV-directional')">Download directional CSV</button>'''
+    table = df.to_html()
 
-    return html
+    return render_template(RESULTS_TEMPLATE, table=table, title=title, question=question)
 
 
 @app.route('/downloadCSV/')
