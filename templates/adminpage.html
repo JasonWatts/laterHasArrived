@@ -2,16 +2,20 @@
 <html>
 <body>
 
-<form action="" method="post" novalidate>
+<form action="" method="post" enctype = "multipart/form-data">
   {{ form.hidden_tag() }}
   <p>
-    <b>{{ form.survey_name.label }}</b><br>
-    {{ form.survey_name(size=100) }}
+    <b>{{ form.survey_create_name.label }}</b><br>
+    {{ form.survey_create_name(size=100) }}
   </p>
   <p>
     <b>{{ form.question_name.label }}</b><br>
     {{ form.question_name(size=100) }}
   </p>
+
+
+  {{ form.csv_upload }}
+
 
   <p>{{ form.submit() }}</p>
 </form>
