@@ -48,10 +48,18 @@ class CreateSurvey(Form):
     submit = SubmitField('submit')
 
 
-def createSurveyDirectory(path_to_new_folder):
-    os.mkdir(path_to_new_folder) # makes a new folder
-    new_text_files_path = os.path.join(path_to_new_folder, 'intermediatefile.txt')
-    open(new_text_files_path, 'a').close() #Creates a blank intermediatefile.txt in that folder
+def createSurveyDirectory(path_to_new_folder, question_name):
+    os.mkdir(path_to_new_folder)
+
+    #Make intermediatefile
+    new_intermediatefile_path = os.path.join(path_to_new_folder, 'intermediatefile.txt')
+    open(new_intermediatefile_path, 'a').close()
+
+    #Make file that just has the question
+    new_question_name_path = os.path.join(path_to_new_folder, 'questionname.txt')
+    question_name_file = open(new_question_name_path,"w")
+    question_name_file.write(question_name)
+    question_name_file.close()
     print('directory and text files created')
 
 
@@ -62,21 +70,23 @@ def adminpage():
     form = CreateSurvey()
     print('Survey Created')
     if request.method == 'POST':
-        folder_name = request.form['survey_create_name'] 
-        folder_name = folder_name.replace(' ', '_') # Important note: folder_name's will replace ' ' with '_', to make it easier for URL team
+        folder_name = request.form['survey_create_name']
+        folder_name = folder_name.replace(' ', '_')
         path_to_new_folder = os.path.join(where_on_my_computer_do_I_want_to_save_survey_folders, folder_name)
-        createSurveyDirectory(path_to_new_folder)
+
+        question_name = request.form['question_name']
+        createSurveyDirectory(path_to_new_folder, question_name)
 
         print('Post worked')
         file = request.files['csv_upload']
         print(file)
         if file:
-            print('if file worked')
+            print('if file')
             filename = secure_filename(file.filename)
             print(filename)
-            file.save(os.path.join(path_to_new_folder, filename))  # Saves Filename to our new folder
+            file.save(os.path.join(path_to_new_folder, filename))
             print('file saved')
-            return 'thanks!' # if it worked it should go to a new screen that just says thanks!
+            return 'thanks! you can now send your survey out at "_______/{}"'.format(folder_name)
 
     return render_template(ADMIN_TEMPLATE, form=form)
 
