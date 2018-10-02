@@ -40,20 +40,20 @@ def GetQuestionNameFromTextFile(filepath):
     return question
 
 def GetFormFromName(name, where_on_my_computer_do_I_want_to_save_survey_folders):
-    print(name)
+    #print(name)
     folder_path = os.path.join(where_on_my_computer_do_I_want_to_save_survey_folders, name)
-    print(folder_path)
+    #print(folder_path)
     questionnamepath = os.path.join(folder_path, 'questionname.txt')
-    print(questionnamepath)
+    #print(questionnamepath)
     inputfilepath = os.path.join(folder_path, 'input.csv')
-    print(inputfilepath)
+    #print(inputfilepath)
     intermediatefilepath = os.path.join(folder_path, 'intermediatefile.txt')
-    print(intermediatefilepath)
+    #print(intermediatefilepath)
     nameslist = tannersReadFileGetNamesFunction(inputfilepath)
-    print(nameslist)
+    #print(nameslist)
     questiontext = GetQuestionNameFromTextFile(questionnamepath)
-    print(questiontext)
-    return questiontext, inputfilepath, nameslist
+    #print(questiontext)
+    return questiontext, inputfilepath, nameslist, intermediatefilepath
 
 
 
@@ -122,37 +122,44 @@ def adminpage():
 
     return render_template(ADMIN_TEMPLATE, form=form)
 
+
+# This is where the participant will enter in the survey
 @app.route('/<name>')
 def my_view_func(name):
-    questiontext, inputfilepath, nameslist = GetFormFromName(name, where_on_my_computer_do_I_want_to_save_survey_folders)
+    questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, where_on_my_computer_do_I_want_to_save_survey_folders)
     print('GetFormFromName Worked')
     form = SurveyForm()
+    name + '/handle_data'
+    print(request.url)
+    redirectlink = request.url + '/handle_data'
     print('form created')
     form.Choices.choices = [(e, e) for e in nameslist]
     print('choices assigned')
-    form.name.choices =  [(nameslist.index(e), e) for e in nameslist]
+    form.name.choices =  [(e, e) for e in nameslist]
     print('name assigned')
-    if request.method == 'POST':
-        print('posting')
-        form = SurveyForm(request.form)
-        if form.validate_on_submit():
-            print('is valid on submit')
-            print(form.Choices.data)
-            print(form.name.data)
-            with open(inputfilepath, "a") as out:
-                out.write("{}: {}\n".format(form.name.data, ', '.join(form.choices.data)))
-            return "Thank you for your response!"
-        else:
-            print(form.errors)
-    else:
-        print(request.method)
-
-    #print(questiontext)
-    #print(nameslist)
-    return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form)
+    return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink)
 
 
-
+### This page handles our data and writes it to the intermediate file path
+@app.route('/<name>/handle_data', methods=['POST'])
+def handle_data(name):
+    print(request.form)
+    #print(name)
+    print('we made it to handle_data')
+    Person = request.form['name']
+    Choices = request.form.getlist('Choices')
+    print('person is :')
+    print(Person)
+    print('Choices for ourput are:')
+    print(Choices)
+    questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, where_on_my_computer_do_I_want_to_save_survey_folders)
+    with open(intermediatefilepath, "a") as out:
+        print(intermediatefilepath)
+        print('OUTPUT TEXT:')
+        print("{}: {}\n".format(Person, ', '.join(Choices)))
+        output = "{}: {}\n".format(Person, ', '.join(Choices))
+        out.write(output)
+    return "Thank you for your response!"
 
 
 
@@ -164,6 +171,7 @@ def render_manager():
     html = df.to_html() +  '''<button type="download" onclick="window.open('/downloadCSV')">Download CSV</button>'''
 
     return html
+
 
 
 @app.route('/downloadCSV/')
