@@ -11,6 +11,7 @@ from wtforms import widgets, SelectField, SelectMultipleField, SubmitField, Text
 from wtforms.validators import InputRequired
 from parseToCSV import *
 import os
+from werkzeug import secure_filename
 import pandas as pd
 
 app = Flask(__name__)
@@ -21,10 +22,7 @@ NAME_FILE = "names.txt"
 OUT_FILE = "response.txt"
 CSV_NAME = "adjacency.csv"
 ADMIN_TEMPLATE = "adminpage.html"
-
-
-
-
+where_on_my_computer_do_I_want_to_save_survey_folders = "C:/Users/walke/Desktop/"
 
 
 
@@ -43,28 +41,43 @@ class SurveyForm(Form):
     submit = SubmitField('submit')
 
 
-class Survey(Form):
+class CreateSurvey(Form):
     survey_create_name = TextField('What is the Name of the Survey? :')
     question_name = TextField('What should the name of the question be? :')
-    people_names = TextField('Spli')
+    csv_upload = FileField('Enter File plz')
     submit = SubmitField('submit')
+
+
+def createSurveyDirectory(path_to_new_folder):
+    os.mkdir(path_to_new_folder) # makes a new folder
+    new_text_files_path = os.path.join(path_to_new_folder, 'intermediatefile.txt')
+    open(new_text_files_path, 'a').close() #Creates a blank intermediatefile.txt in that folder
+    print('directory and text files created')
 
 
 
 
 @app.route('/admin', methods=['get', 'post'])
 def adminpage():
-    form = Survey(request.form)
-    if form.validate_on_submit():
-        filename = 
-        os.mkdir('C:\Users\Desktop\walke\{}')
-        return 'Survey Created'
+    form = CreateSurvey()
+    print('Survey Created')
+    if request.method == 'POST':
+        folder_name = request.form['survey_create_name'] 
+        folder_name = folder_name.replace(' ', '_') # Important note: folder_name's will replace ' ' with '_', to make it easier for URL team
+        path_to_new_folder = os.path.join(where_on_my_computer_do_I_want_to_save_survey_folders, folder_name)
+        createSurveyDirectory(path_to_new_folder)
 
-        #CreateNewURL()
+        print('Post worked')
+        file = request.files['csv_upload']
+        print(file)
+        if file:
+            print('if file worked')
+            filename = secure_filename(file.filename)
+            print(filename)
+            file.save(os.path.join(path_to_new_folder, filename))  # Saves Filename to our new folder
+            print('file saved')
+            return 'thanks!' # if it worked it should go to a new screen that just says thanks!
 
-
-    else:
-        print(form.errors)
     return render_template(ADMIN_TEMPLATE, form=form)
 
 
