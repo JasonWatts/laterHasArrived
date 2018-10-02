@@ -6,9 +6,11 @@
 
 from flask import Flask, render_template, request, make_response
 from flask_wtf import Form
-from wtforms import widgets, SelectField, SelectMultipleField, SubmitField
+from flask.views import View
+from wtforms import widgets, SelectField, SelectMultipleField, SubmitField, TextField
 from wtforms.validators import InputRequired
 from parseToCSV import *
+import os
 import pandas as pd
 
 app = Flask(__name__)
@@ -18,6 +20,13 @@ SURVEY_TEMPLATE = "survey.html"
 NAME_FILE = "names.txt"
 OUT_FILE = "response.txt"
 CSV_NAME = "adjacency.csv"
+ADMIN_TEMPLATE = "adminpage.html"
+
+
+
+
+
+
 
 names = open(NAME_FILE,'r').read().split('\n')[:-1] #Strip the last element, which will just be an empty string created by the last newline in the file.
 names_nospace = [name.strip() for name in names]
@@ -32,6 +41,34 @@ class SurveyForm(Form):
     name = SelectField('Please select who you are. Type your name after clicking the drop down box!', choices = list(zip(names,names_nospace)), validators = [InputRequired()])
     choices = MultiCheckboxField("Please select who you know", choices = list(zip(names,names_nospace)), validators = [InputRequired()])
     submit = SubmitField('submit')
+
+
+class Survey(Form):
+    survey_create_name = TextField('What is the Name of the Survey? :')
+    question_name = TextField('What should the name of the question be? :')
+    people_names = TextField('Spli')
+    submit = SubmitField('submit')
+
+
+
+
+@app.route('/admin', methods=['get', 'post'])
+def adminpage():
+    form = Survey(request.form)
+    if form.validate_on_submit():
+        filename = 
+        os.mkdir('C:\Users\Desktop\walke\{}')
+        return 'Survey Created'
+
+        #CreateNewURL()
+
+
+    else:
+        print(form.errors)
+    return render_template(ADMIN_TEMPLATE, form=form)
+
+
+
 
 @app.route('/', methods=['get','post'])
 def survey():
