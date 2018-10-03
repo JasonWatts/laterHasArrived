@@ -8,7 +8,7 @@ In order to run this application you first need to pip3 install some libraries:
 
 ```
 pip3 install pandas --user
-
+pip3 install flask
 ```
 
 # Contributors
