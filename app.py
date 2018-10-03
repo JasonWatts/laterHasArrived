@@ -15,6 +15,7 @@ import os
 import pandas as pd
 from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
+from person_class import Person
 
 
 app = Flask(__name__)
@@ -22,7 +23,7 @@ app.config['SECRET_KEY'] = 'testing_key'
 
 SURVEY_TEMPLATE = "survey.html"
 RESULTS_TEMPLATE = "results.html"
-NAME_FILE = "names.txt"
+NAME_FILE = "names.csv"
 OUT_FILE = "response.txt"
 CSV_NAME = "adjacency.csv"
 ADMIN_TEMPLATE = "adminpage.html"
@@ -31,9 +32,27 @@ where_on_my_computer_do_I_want_to_save_survey_folders = "C:/Users/walke/Desktop/
 
 
 def tannersReadFileGetNamesFunction(filepath):
-    df = pd.read_csv(filepath)
-    names = list(df['names'])
-    return names
+    csv = open(filepath)
+    names = []
+    people = []
+    names_to_return = []
+    for line in csv:
+        names.append(line.strip("\n"))
+    csv.close()
+    for i in range(len(names)):
+        name_info = names[i].split(",")
+        if len(name_info) == 4:
+            person = Person(i, name_info[0], name_info[1], name_info[2], name_info[3])
+        elif len(name_info) == 3:
+            person = Person(i, name_info[0], name_info[1], name_info[2])
+        else:
+            person = Person(i, name_info[0], name_info[1])
+        people.append(person)
+
+    for individual in people:
+        names_to_return.append(individual.get_name())
+
+    return names_to_return
 
 
 def GetQuestionNameFromTextFile(filepath):
