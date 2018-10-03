@@ -67,7 +67,11 @@ class TestAdjMatrixTranslator(unittest.TestCase):
             testDict = self.dictionaryTests[i]
             check = os.path.join(self.scriptDir, self.relPath + files[i])
             self.assertTrue(equalDF(fillDF(testMatrix, testDict, directional=True), pd.read_csv(check, header=0, index_col=0)))
-            
+    
+    def test_initialize_from_names_list(self):
+        check = os.path.join(self.scriptDir, self.relPath + self.initialMatrices[0])
+        names = ["user1", "user2", "user3", "user4", "user5"]
+        self.assertTrue(equalDF(initializeMatrix(names), pd.read_csv(check, header=0, index_col=0)))
 
 unittest.main()
 
