@@ -40,7 +40,7 @@ The output should display a line similar to the following:
 ```
 Finally copy and paste the URL displayed in your terminal into a browser.
 
-#csv 
+# CSV
 
 In order for the program to run the csv must be named "names.csv" and be formated in the following manner (last name, first name, unique-id1, unique-id2) where unique-id1 and unique-id2 are not required 
 
