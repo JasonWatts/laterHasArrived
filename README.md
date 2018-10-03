@@ -12,17 +12,18 @@ pip3 install pandas --user
 ```
 
 # Contributors
-Christian
-Drew
-Heather
-Jared
-Jason
-Kalie
-Kyle
-Tanner
-Trevor
-Walker
-M'Kya
+Christian,
+Drew,
+Heather,
+Jared,
+Jason,
+Kalie,
+Kyle,
+Tanner,
+Trevor,
+Walker,
+M'Kya,
+Maya
 
 # Getting started
 Clone the repository to a location of your choosing, then cd into the folder.
