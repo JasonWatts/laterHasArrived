@@ -42,17 +42,16 @@ def parse(file):
     intermediateFile.close()
     return intermediateNames
 
-
-
-
-def initializeMatrix(txtFile):
+def initializeMatrix(names):
     """
     Turn a list of names separated by '\n' into an empty adjacency matrix
     
     Parameters
     ----------
-    txtFile : .txt
-        a text file of names separated by '\n'
+    names : .txt or list
+        a text file of names separated by '\n' 
+        OR
+        a list of names
 
     Returns
     -------
@@ -62,10 +61,14 @@ def initializeMatrix(txtFile):
     """
     
     #open txt file and separate names into list
-    with open(txtFile) as f:
-        content = f.readlines()
+    if not isinstance(names, list):
+        with open(names) as f:
+            content = f.readlines()
+    else:
+        content = names
+    #Sanitize data of \n and spaces (currently spaces removal is commented out)
     content = [x.strip('\n') for x in content]
-    content = [x.replace(" ","") for x in content]
+    #content = [x.replace(" ","") for x in content]
     
     #crete empty pandas dataframe
     df = pd.DataFrame(0, index=content, columns=content)
@@ -107,7 +110,7 @@ def fillDF(df, intermediateNames, directional=False):
     return df
     
     
-def makeCSV(df, filePath):
+def makeCSV(df, file_path):
     """
     Saves a csv file with the given adjacency matrix
     
@@ -124,17 +127,20 @@ def makeCSV(df, filePath):
     null
     
     """
-    if (filePath[-4:] == '.csv'):
-        df.to_csv(filePath)
+    if (file_path[-4:] == '.csv'):
+        df.to_csv(file_path)
     else:
         raise Exception("File name must be of type '.csv'")
     
 
-def run_all(names_file, intermediate_file, csv_name):
+def run_all(names, intermediate_file, csv_path):
     parsed_file = parse(intermediate_file)
-    empty_df1 = initializeMatrix(names_file)
-    empty_df2 = initializeMatrix(names_file)
+    empty_df1 = initializeMatrix(names)
+    empty_df2 = empty_df1.copy()
+
     full_df = fillDF(empty_df1, parsed_file)
-    makeCSV(full_df, csv_name)
+    makeCSV(full_df, csv_path)
     directional_df = fillDF(empty_df2, parsed_file, directional=True)
-    makeCSV(directional_df, csv_name[:-4] + "_directional.csv")
+    makeCSV(directional_df, csv_path[:-4] + "_directional.csv")
+
+

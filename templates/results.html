@@ -3,9 +3,9 @@
 <body>
     <h1> {{ title }} </h1>
     <h4> {{ question }} </h4>
-    <button type="download" onclick="window.open('/downloadCSV')">Download CSV</button>    
-    <button type="download" onclick="window.open('/downloadCSV-directional')">Download directional CSV</button>
-
+    <button type="button" onclick="window.location.href='{{ url_for( 'download_csv', survey_name=title ) }}';">Download CSV</button>
+    <button type="button" onclick="window.location.href='{{ url_for( 'download_csv_directional', survey_name=title ) }}';">Download Directional CSV</button>
+    
     {{ table | safe }}
 
 </body>
