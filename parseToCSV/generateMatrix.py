@@ -68,7 +68,7 @@ def initializeMatrix(names):
         content = names
     #Sanitize data of \n and spaces (currently spaces removal is commented out)
     content = [x.strip('\n') for x in content]
-    #content = [x.replace(" ","") for x in content]
+    content = [x.replace(",","") for x in content]
     
     #crete empty pandas dataframe
     df = pd.DataFrame(0, index=content, columns=content)
