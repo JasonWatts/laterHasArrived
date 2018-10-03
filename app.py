@@ -21,10 +21,12 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
 
 SURVEY_TEMPLATE = "survey.html"
+RESULTS_TEMPLATE = "results.html"
 NAME_FILE = "names.txt"
 OUT_FILE = "response.txt"
 CSV_NAME = "adjacency.csv"
 ADMIN_TEMPLATE = "adminpage.html"
+CSV_DIRECTIONAL = "adjacency_directional.csv"
 where_on_my_computer_do_I_want_to_save_survey_folders = "C:/Users/walke/Desktop/"
 
 
@@ -55,10 +57,6 @@ def GetFormFromName(name, where_on_my_computer_do_I_want_to_save_survey_folders)
     #print(questiontext)
     return questiontext, inputfilepath, nameslist, intermediatefilepath
 
-
-
-#names = open(NAME_FILE,'r').read().split('\n')[:-1] #Strip the last element, which will just be an empty string created by the last newline in the file.
-#names_nospace = [name.strip() for name in names]
 
 #Checkbox input object, credit to https://gist.github.com/doobeh/4668212
 class MultiCheckboxField(SelectMultipleField):
@@ -166,11 +164,12 @@ def handle_data(name):
 @app.route('/manager')
 def render_manager():
     generateMatrix.run_all(NAME_FILE, OUT_FILE, CSV_NAME)
-
+    title="THIS IS A HARDCODED TITLE"
+    question="IS THIS A HARDCODED QUESTION? (hint: yes)"
     df = pd.read_csv(CSV_NAME)
-    html = df.to_html() +  '''<button type="download" onclick="window.open('/downloadCSV')">Download CSV</button>'''
+    table = df.to_html()
 
-    return html
+    return render_template(RESULTS_TEMPLATE, table=table, title=title, question=question)
 
 
 
@@ -183,6 +182,17 @@ def download_csv():
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
+
+@app.route('/downloadCSV-directional/')
+def download_csv_directional():
+    with open(CSV_DIRECTIONAL) as csvFile:
+        makeCSV = csvFile.read()
+    response = make_response(makeCSV)
+    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    response.headers['Content-Disposition'] = cd
+    response.mimetype='text/csv'
+    return response
+
 
 if __name__ == "__main__":
     app.run()
