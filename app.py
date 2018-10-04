@@ -216,7 +216,8 @@ def download_csv(survey_name):
     with open(file_path) as csvFile:
         makeCSV = csvFile.read()
     response = make_response(makeCSV)
-    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    download_name = 'AdjacencyMatrix' + survey_name + '.csv'
+    cd = 'attachment; filename=' + download_name
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
@@ -227,7 +228,8 @@ def download_csv_directional(survey_name):
     with open(file_path) as csvFile:
         makeCSV = csvFile.read()
     response = make_response(makeCSV)
-    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    download_name = 'DirectionalAdjacencyMatrix' + survey_name + '.csv'
+    cd = 'attachment; filename=' + download_name
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
