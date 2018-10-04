@@ -150,8 +150,8 @@ def adminpage():
             url = request.url
             newstring = url.replace('/admin', '/{}'.format(folder_name))
             string = """
-            Thanks! you can now send your survey out at <b>"{}"</b>  and  you can see and download your results at <b>{}/manager</b>
-            """.format(newstring, newstring)
+            Thanks! you can now send your survey out at <a href='{}'>{}</a>  and  you can see and download your results at <a href='{}/manager'>{}/manager</a>
+            """.format(newstring, newstring, newstring, newstring)
             return string
 
     return render_template(ADMIN_TEMPLATE, form=form)
