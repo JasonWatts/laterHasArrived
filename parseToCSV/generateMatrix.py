@@ -42,7 +42,7 @@ def parse(file):
     intermediateFile.close()
     return intermediateNames
 
-def initializeMatrix(names):
+def initializeMatrix(content):
     """
     Turn a list of names separated by '\n' into an empty adjacency matrix
     
@@ -60,15 +60,10 @@ def initializeMatrix(names):
     
     """
     
-    #open txt file and separate names into list
-    if not isinstance(names, list):
-        with open(names) as f:
-            content = f.readlines()
-    else:
-        content = names
+
     #Sanitize data of \n and spaces (currently spaces removal is commented out)
     content = [x.strip('\n') for x in content]
-    #content = [x.replace(" ","") for x in content]
+    content = [x.replace(",","") for x in content]
     
     #crete empty pandas dataframe
     df = pd.DataFrame(0, index=content, columns=content)
@@ -133,9 +128,9 @@ def makeCSV(df, file_path):
         raise Exception("File name must be of type '.csv'")
     
 
-def run_all(names, intermediate_file, csv_path):
+def run_all(nameslist, intermediate_file, csv_path):
     parsed_file = parse(intermediate_file)
-    empty_df1 = initializeMatrix(names)
+    empty_df1 = initializeMatrix(nameslist)
     empty_df2 = empty_df1.copy()
 
     full_df = fillDF(empty_df1, parsed_file)

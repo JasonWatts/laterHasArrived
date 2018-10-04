@@ -16,12 +16,18 @@ import pandas as pd
 from werkzeug import secure_filename
 from person_class import Person
 import json
+import socket
+
+my_ip=([(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
 
+app.url_map.strict_slashes = False
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
+HOMEPAGE_TEMPLATE = "homepage.html"
 SURVEY_TEMPLATE = "survey.html"
 RESULTS_TEMPLATE = "results.html"
 NAME_FILE = "names.csv"
@@ -56,7 +62,7 @@ def tannersReadFileGetNamesFunction(filepath):
         people.append(person)
 
     for individual in people:
-        names_to_return.append(individual.get_name())
+        names_to_return.append("%s%d" %(individual.get_name(), individual.id_num))
 
     return names_to_return
 
@@ -98,10 +104,10 @@ class SurveyForm(Form):
 
 
 class CreateSurvey(Form):
-    survey_create_name = TextField('What is the Name of the Survey? :')
-    question_name = TextField('What should the name of the question be? :')
-    csv_upload = FileField('Enter File plz')
-    submit = SubmitField('submit')
+    survey_create_name = TextField('Please enter the title of this survey:')
+    question_name = TextField('Please enter your question prompt:')
+    csv_upload = FileField('Upload CSV File')
+    submit = SubmitField('Create Survey')
 
 
 
@@ -120,10 +126,15 @@ def createSurveyDirectory(path_to_new_folder, question_name):
     print('directory and text files created')
 
 
+@app.route('/')
+def homepage():
+    return render_template(HOMEPAGE_TEMPLATE)
 
 
-@app.route('/admin', methods=['get', 'post'])
-def adminpage():
+
+
+@app.route('/createSurvey', methods=['get', 'post'])
+def createSurveyPage():
     form = CreateSurvey()
     print('Survey Created')
     if request.method == 'POST':
@@ -144,7 +155,12 @@ def adminpage():
             file.save(os.path.join(path_to_new_folder, NAME_FILE))
             print(os.path.join(path_to_new_folder, NAME_FILE))
             print('file saved')
-            return 'thanks! you can now send your survey out at "_______/{}"'.format(folder_name)
+            url = request.url
+            newstring = url.replace('/admin', '/{}'.format(folder_name))
+            string = """
+            Thanks! you can now send your survey out at <a href='{}'>{}</a>  and  you can see and download your results at <a href='{}/manager'>{}/manager</a>
+            """.format(newstring, newstring, newstring, newstring)
+            return string
 
     return render_template(ADMIN_TEMPLATE, form=form)
 
@@ -190,17 +206,15 @@ def handle_data(name):
 
 
 
-@app.route('/<name>/manager')
-def render_manager(name):
+@app.route('/<name>/results')
+def render_results(name):
     questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
 
     survey = os.path.join(SURVEY_DIR, name)
     csv_path = os.path.join(survey, CSV_NAME)
     input_path = os.path.join(survey, NAME_FILE)
     out_path = os.path.join(survey, OUT_FILE)
-
-    generateMatrix.run_all(input_path, out_path, csv_path)
-
+    generateMatrix.run_all(nameslist, out_path, csv_path)
     title=name
 
     question=questiontext
@@ -218,7 +232,8 @@ def download_csv(survey_name):
     with open(file_path) as csvFile:
         makeCSV = csvFile.read()
     response = make_response(makeCSV)
-    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    download_name = 'AdjacencyMatrix' + survey_name + '.csv'
+    cd = 'attachment; filename=' + download_name
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
@@ -229,11 +244,12 @@ def download_csv_directional(survey_name):
     with open(file_path) as csvFile:
         makeCSV = csvFile.read()
     response = make_response(makeCSV)
-    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    download_name = 'DirectionalAdjacencyMatrix' + survey_name + '.csv'
+    cd = 'attachment; filename=' + download_name
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host=my_ip, port=3134)
