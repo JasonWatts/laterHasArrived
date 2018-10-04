@@ -4,7 +4,7 @@
 #Writes a respondents results to a single line of a "response.txt" dump file.
 #
 
-from flask import Flask, render_template, request, make_response, Response
+from flask import Flask, render_template, request, make_response, Response, redirect, url_for
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileRequired
 from flask.views import View
@@ -13,7 +13,6 @@ from wtforms.validators import InputRequired
 from parseToCSV import *
 import os
 import pandas as pd
-from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
 from person_class import Person
 import json
@@ -93,7 +92,8 @@ class MultiCheckboxField(SelectMultipleField):
 class SurveyForm(Form):
     name = SelectField('Please select who you are. Type your name after clicking the drop down box!', validators = [InputRequired()])
     #Choices = MultiCheckboxField("", validators = [InputRequired()])
-    choice = TextField('Who do you know', id='people_autocomplete')
+    search = TextField('Enter Name', id='searchbar')
+    choice = SelectField('Select a Name', validators = [InputRequired()], id='selector')
     submit = SubmitField('submit')
 
 
@@ -162,6 +162,7 @@ def my_view_func(name):
     #form.Choices.choices = [(e, e) for e in nameslist]
     print('choices assigned')
     form.name.choices =  [(e, e) for e in nameslist]
+    form.choice.choices =  [(e, e) for e in nameslist]
     print('name assigned')
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
@@ -169,7 +170,7 @@ def my_view_func(name):
 @app.route('/<name>/_autocomplete', methods=['GET'])
 def autocomplete(name):
     nameslist = GetFormFromName(name, SURVEY_DIR)[2]
-    return Response(json.dumps(cities), mimetype='application/json')
+    return Response(json.dumps(nameslist), mimetype='application/json')
 
 ### This page handles our data and writes it to the intermediate file path
 @app.route('/<name>/handle_data', methods=['POST'])
@@ -178,7 +179,7 @@ def handle_data(name):
     #print(name)
     print('we made it to handle_data')
     Person = request.form['name']
-    Choices = list(request.form['choice'])
+    Choices = [request.form['choice']]
     #Choices = request.form.getlist('Choices')
     print('person is :')
     print(Person)

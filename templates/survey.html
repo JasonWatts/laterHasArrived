@@ -1,13 +1,5 @@
 <!doctype html>
 <html>
-
-<head> <!--header from https://github.com/LukasSliacky/Flask-Autocomplete/blob/master/templates/search.html-->
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
-</head>
-
 <body>
 
 <form action="{{ redirectlink }}" method="post" novalidate>
@@ -17,23 +9,29 @@
     {{ form.name(size=1) }}
   </p>
   <p>
-    <b>{{ questiontext }}</b><br>
-    {{ form.choice }}
+    <b>{{ questiontext }}</b><br><br>
+    {{ form.search(onkeyup="filter()", placeholder="Search...") }}<br>
+    {{ form.choice(size=10) }}
   </p>
   <p>{{ form.submit() }}</p>
 </form>
 
+<!--Script based on a modified example from W3 schools (https://www.w3schools.com/howto/howto_js_filter_dropdown.asp)-->
 <script>
-    $(function() {
-        $.ajax({
-            url: /{{ name }}/_autocomplete
-            }).done(function (data){
-                $('#people_autocomplete').autocomplete({
-                    source: data,
-                    minLength: 2
-                });
-            });
-        });
+function filter() {
+  var input, filter, ul, li, a, i;
+  input = document.getElementById("searchbar");
+  filter = input.value.toUpperCase();
+  div = document.getElementById("selector");
+  a = div.getElementsByTagName("option");
+  for (i = 0; i < a.length; i++) {
+    if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+      a[i].style.display = "";
+    } else {
+      a[i].style.display = "none";
+    }
+  }
+}
 </script>
 
 </body>
