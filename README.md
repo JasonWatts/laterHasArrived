@@ -2,6 +2,20 @@
 Software Development Project for Westmont's CS120 2018
 Web app that lets you take a simple survey then creates an adjacency matrix from the data collected.
 
+# TODO:
+* Update REAMDE: go to "...../admin"
+* What should the  question promt be?
+* Add home page
+  *remove the "..../admin" from README
+*In README move csv req to top
+*Add extra info for CSV upload button
+*Clarify successfull test addition responce
+*Add spaces for names
+*Remove 'your' name after you choose it
+*Add flag for ignoring trailing slash in URL
+*Document all URLs to type in the url bar
+*Clarify between both csv download buttons(include survey name in the downloaded file)
+
 # Requirements
 
 In order to run this application you first need to pip3 install some libraries:
