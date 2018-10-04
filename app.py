@@ -4,7 +4,7 @@
 #Writes a respondents results to a single line of a "response.txt" dump file.
 #
 
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, Response
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileRequired
 from flask.views import View
@@ -16,7 +16,7 @@ import pandas as pd
 from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
 from person_class import Person
-
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
@@ -67,7 +67,7 @@ def GetQuestionNameFromTextFile(filepath):
     question = file.read()
     return question
 
-def GetFormFromName(name, survey_folders): 
+def GetFormFromName(name, survey_folders):
     #print(name)
     folder_path = os.path.join(survey_folders, name)
     #print(folder_path)
@@ -92,7 +92,8 @@ class MultiCheckboxField(SelectMultipleField):
 #Class for the survey.
 class SurveyForm(Form):
     name = SelectField('Please select who you are. Type your name after clicking the drop down box!', validators = [InputRequired()])
-    Choices = MultiCheckboxField("", validators = [InputRequired()])
+    #Choices = MultiCheckboxField("", validators = [InputRequired()])
+    choice = TextField('Who do you know', id='people_autocomplete')
     submit = SubmitField('submit')
 
 
@@ -158,12 +159,17 @@ def my_view_func(name):
     print(request.url)
     redirectlink = request.url + '/handle_data'
     print('form created')
-    form.Choices.choices = [(e, e) for e in nameslist]
+    #form.Choices.choices = [(e, e) for e in nameslist]
     print('choices assigned')
     form.name.choices =  [(e, e) for e in nameslist]
     print('name assigned')
-    return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink)
+    return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
+#Autocomplete credits to https://github.com/LukasSliacky/Flask-Autocomplete/blob/master/app.py
+@app.route('/<name>/_autocomplete', methods=['GET'])
+def autocomplete(name):
+    nameslist = GetFormFromName(name, SURVEY_DIR)[2]
+    return Response(json.dumps(cities), mimetype='application/json')
 
 ### This page handles our data and writes it to the intermediate file path
 @app.route('/<name>/handle_data', methods=['POST'])
@@ -172,7 +178,8 @@ def handle_data(name):
     #print(name)
     print('we made it to handle_data')
     Person = request.form['name']
-    Choices = request.form.getlist('Choices')
+    Choices = list(request.form['choice'])
+    #Choices = request.form.getlist('Choices')
     print('person is :')
     print(Person)
     print('Choices for ourput are:')
@@ -191,16 +198,16 @@ def handle_data(name):
 @app.route('/<name>/manager')
 def render_manager(name):
     questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
-    
+
     survey = os.path.join(SURVEY_DIR, name)
     csv_path = os.path.join(survey, CSV_NAME)
     input_path = os.path.join(survey, NAME_FILE)
     out_path = os.path.join(survey, OUT_FILE)
-    
+
     generateMatrix.run_all(input_path, out_path, csv_path)
-    
+
     title=name
-       
+
     question=questiontext
 
     df = pd.read_csv(csv_path)

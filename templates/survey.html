@@ -1,5 +1,13 @@
 <!doctype html>
 <html>
+
+<head> <!--header from https://github.com/LukasSliacky/Flask-Autocomplete/blob/master/templates/search.html-->
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+</head>
+
 <body>
 
 <form action="{{ redirectlink }}" method="post" novalidate>
@@ -10,10 +18,23 @@
   </p>
   <p>
     <b>{{ questiontext }}</b><br>
-    {{ form.Choices }}
+    {{ form.choice }}
   </p>
   <p>{{ form.submit() }}</p>
 </form>
+
+<script>
+    $(function() {
+        $.ajax({
+            url: /{{ name }}/_autocomplete
+            }).done(function (data){
+                $('#people_autocomplete').autocomplete({
+                    source: data,
+                    minLength: 2
+                });
+            });
+        });
+</script>
 
 </body>
 </html>
