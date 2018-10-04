@@ -6,7 +6,7 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 1. Update REAMDE: go to "...../admin"
 2. What should the  question promt be?
 3. Add home page
-  * remove the "..../admin" from README
+   * remove the "..../admin" from README
 4. In README move csv req to top
 5. Add extra info for CSV upload button
 6. Clarify successfull test addition responce
