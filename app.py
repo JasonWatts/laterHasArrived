@@ -57,7 +57,7 @@ def tannersReadFileGetNamesFunction(filepath):
         people.append(person)
 
     for individual in people:
-        names_to_return.append(individual.get_name())
+        names_to_return.append("%s%d" %(individual.get_name(), individual.id_num))
 
     return names_to_return
 
@@ -197,7 +197,7 @@ def render_manager(name):
     input_path = os.path.join(survey, NAME_FILE)
     out_path = os.path.join(survey, OUT_FILE)
     
-    generateMatrix.run_all(input_path, out_path, csv_path)
+    generateMatrix.run_all(nameslist, out_path, csv_path)
     
     title=name
        
