@@ -23,6 +23,7 @@ app.config['SECRET_KEY'] = 'testing_key'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
+HOMEPAGE_TEMPLATE = "homepage.html"
 SURVEY_TEMPLATE = "survey.html"
 RESULTS_TEMPLATE = "results.html"
 NAME_FILE = "names.csv"
@@ -117,6 +118,11 @@ def createSurveyDirectory(path_to_new_folder, question_name):
     question_name_file.write(question_name)
     question_name_file.close()
     print('directory and text files created')
+
+
+@app.route('/')
+def homepage():
+    return render_template(HOMEPAGE_TEMPLATE)
 
 
 
