@@ -91,9 +91,9 @@ class MultiCheckboxField(SelectMultipleField):
 #Class for the survey.
 class SurveyForm(Form):
     name = SelectField('Please select who you are. Type your name after clicking the drop down box!', validators = [InputRequired()])
-    #Choices = MultiCheckboxField("", validators = [InputRequired()])
     search = TextField('Enter Name', id='searchbar')
-    choice = SelectField('Select a Name', validators = [InputRequired()], id='selector')
+    Choices = MultiCheckboxField("", validators = [InputRequired()], id='selector')
+    #choice = SelectField('Select a Name', validators = [InputRequired()], id='selector')
     submit = SubmitField('submit')
 
 
@@ -159,18 +159,12 @@ def my_view_func(name):
     print(request.url)
     redirectlink = request.url + '/handle_data'
     print('form created')
-    #form.Choices.choices = [(e, e) for e in nameslist]
+    form.Choices.choices = [(e, e) for e in nameslist]
     print('choices assigned')
     form.name.choices =  [(e, e) for e in nameslist]
-    form.choice.choices =  [(e, e) for e in nameslist]
+    #form.choice.choices =  [(e, e) for e in nameslist]
     print('name assigned')
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
-
-#Autocomplete credits to https://github.com/LukasSliacky/Flask-Autocomplete/blob/master/app.py
-@app.route('/<name>/_autocomplete', methods=['GET'])
-def autocomplete(name):
-    nameslist = GetFormFromName(name, SURVEY_DIR)[2]
-    return Response(json.dumps(nameslist), mimetype='application/json')
 
 ### This page handles our data and writes it to the intermediate file path
 @app.route('/<name>/handle_data', methods=['POST'])
@@ -179,8 +173,8 @@ def handle_data(name):
     #print(name)
     print('we made it to handle_data')
     Person = request.form['name']
-    Choices = [request.form['choice']]
-    #Choices = request.form.getlist('Choices')
+    #Choices = [request.form['choice']]
+    Choices = request.form.getlist('Choices')
     print('person is :')
     print(Person)
     print('Choices for ourput are:')

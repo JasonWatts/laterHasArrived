@@ -9,9 +9,13 @@
     {{ form.name(size=1) }}
   </p>
   <p>
-    <b>{{ questiontext }}</b><br><br>
+    <b>{{ questiontext }}</b><br>
     {{ form.search(onkeyup="filter()", placeholder="Search...") }}<br>
-    {{ form.choice(size=10) }}
+    <div style="width: 600px; height: 200px; overflow-y: scroll;">
+    {{ form.Choices() }}
+    </div>
+    <!--form.choice(size=10)-->
+    <!--<button type="button" onclick="selectName()">Select Name</button>-->
   </p>
   <p>{{ form.submit() }}</p>
 </form>
@@ -22,8 +26,8 @@ function filter() {
   var input, filter, ul, li, a, i;
   input = document.getElementById("searchbar");
   filter = input.value.toUpperCase();
-  div = document.getElementById("selector");
-  a = div.getElementsByTagName("option");
+  selector = document.getElementById("selector");
+  a = selector.getElementsByTagName("li");
   for (i = 0; i < a.length; i++) {
     if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
       a[i].style.display = "";
@@ -32,6 +36,10 @@ function filter() {
     }
   }
 }
+/*function selectName() {
+  selector = document.getElementById("selector");
+  yourSelect.options[ yourSelect.selectedIndex ].value
+}*/
 </script>
 
 </body>
