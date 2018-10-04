@@ -147,7 +147,12 @@ def adminpage():
             file.save(os.path.join(path_to_new_folder, NAME_FILE))
             print(os.path.join(path_to_new_folder, NAME_FILE))
             print('file saved')
-            return 'thanks! you can now send your survey out at "_______/{}"'.format(folder_name)
+            url = request.url
+            newstring = url.replace('/admin', '/{}'.format(folder_name))
+            string = """
+            Thanks! you can now send your survey out at <b>"{}"</b>  and  you can see and download your results at <b>{}/manager</b>
+            """.format(newstring, newstring)
+            return string
 
     return render_template(ADMIN_TEMPLATE, form=form)
 
