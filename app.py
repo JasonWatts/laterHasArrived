@@ -240,4 +240,4 @@ def download_csv_directional(survey_name):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host=my_ip, port=3134)
