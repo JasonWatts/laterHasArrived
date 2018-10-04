@@ -38,7 +38,7 @@ $ python3 app.py
 ```
 The output should display a line similar to the following:
 ```
-* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+* Running on http://127.0.0.1:5000/admin (Press CTRL+C to quit)
 ```
 Finally copy and paste the URL displayed in your terminal into a browser.
 
