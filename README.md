@@ -53,6 +53,7 @@ If you are an administrator and would like to view the adjacency matrix, type in
 # Server
 To use your computer as a server, go to the file containing app.py and then run the following commands, replacing "0.0.0.0" with your device's current IP address. 
 ```
+$ export PATH="/python/bin:$PATH"
 $ export FLASK_APP=app.py
 $ flask run --host=0.0.0.0 
 ```
