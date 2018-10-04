@@ -17,6 +17,10 @@ from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
 from person_class import Person
 
+import socket
+my_ip=([(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
