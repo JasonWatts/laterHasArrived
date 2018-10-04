@@ -17,6 +17,10 @@ from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
 from person_class import Person
 
+import socket
+my_ip=([(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
@@ -149,7 +153,12 @@ def adminpage():
             file.save(os.path.join(path_to_new_folder, NAME_FILE))
             print(os.path.join(path_to_new_folder, NAME_FILE))
             print('file saved')
-            return 'thanks! you can now send your survey out at "_______/{}"'.format(folder_name)
+            url = request.url
+            newstring = url.replace('/admin', '/{}'.format(folder_name))
+            string = """
+            Thanks! you can now send your survey out at <a href='{}'>{}</a>  and  you can see and download your results at <a href='{}/manager'>{}/manager</a>
+            """.format(newstring, newstring, newstring, newstring)
+            return string
 
     return render_template(ADMIN_TEMPLATE, form=form)
 
@@ -222,7 +231,8 @@ def download_csv(survey_name):
     with open(file_path) as csvFile:
         makeCSV = csvFile.read()
     response = make_response(makeCSV)
-    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    download_name = 'AdjacencyMatrix' + survey_name + '.csv'
+    cd = 'attachment; filename=' + download_name
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
@@ -233,11 +243,12 @@ def download_csv_directional(survey_name):
     with open(file_path) as csvFile:
         makeCSV = csvFile.read()
     response = make_response(makeCSV)
-    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    download_name = 'DirectionalAdjacencyMatrix' + survey_name + '.csv'
+    cd = 'attachment; filename=' + download_name
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host=my_ip, port=3134)
