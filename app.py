@@ -4,7 +4,7 @@
 #Writes a respondents results to a single line of a "response.txt" dump file.
 #
 
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, Response, redirect, url_for
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileRequired
 from flask.views import View
@@ -13,14 +13,12 @@ from wtforms.validators import InputRequired
 from parseToCSV import *
 import os
 import pandas as pd
-from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
 from person_class import Person
-
+import json
 import socket
+
 my_ip=([(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
-
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
@@ -74,7 +72,7 @@ def GetQuestionNameFromTextFile(filepath):
     question = file.read()
     return question
 
-def GetFormFromName(name, survey_folders): 
+def GetFormFromName(name, survey_folders):
     #print(name)
     folder_path = os.path.join(survey_folders, name)
     #print(folder_path)
@@ -99,7 +97,9 @@ class MultiCheckboxField(SelectMultipleField):
 #Class for the survey.
 class SurveyForm(Form):
     name = SelectField('Please select who you are. Type your name after clicking the drop down box!', validators = [InputRequired()])
-    Choices = MultiCheckboxField("", validators = [InputRequired()])
+    search = TextField('Enter Name', id='searchbar')
+    Choices = MultiCheckboxField("", validators = [InputRequired()], id='selector')
+    #choice = SelectField('Select a Name', validators = [InputRequired()], id='selector')
     submit = SubmitField('submit')
 
 
@@ -178,9 +178,9 @@ def my_view_func(name):
     form.Choices.choices = [(e, e) for e in nameslist]
     print('choices assigned')
     form.name.choices =  [(e, e) for e in nameslist]
+    #form.choice.choices =  [(e, e) for e in nameslist]
     print('name assigned')
-    return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink)
-
+    return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
 ### This page handles our data and writes it to the intermediate file path
 @app.route('/<name>/handle_data', methods=['POST'])
@@ -189,6 +189,7 @@ def handle_data(name):
     #print(name)
     print('we made it to handle_data')
     Person = request.form['name']
+    #Choices = [request.form['choice']]
     Choices = request.form.getlist('Choices')
     print('person is :')
     print(Person)
@@ -208,16 +209,14 @@ def handle_data(name):
 @app.route('/<name>/results')
 def render_results(name):
     questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
-    
+
     survey = os.path.join(SURVEY_DIR, name)
     csv_path = os.path.join(survey, CSV_NAME)
     input_path = os.path.join(survey, NAME_FILE)
     out_path = os.path.join(survey, OUT_FILE)
-    
     generateMatrix.run_all(nameslist, out_path, csv_path)
-    
     title=name
-       
+
     question=questiontext
 
     df = pd.read_csv(csv_path)
