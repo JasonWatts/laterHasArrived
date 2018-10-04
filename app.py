@@ -4,7 +4,7 @@
 #Writes a respondents results to a single line of a "response.txt" dump file.
 #
 
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, Response, redirect, url_for
 from flask_wtf import Form
 from flask_wtf.file import FileField, FileRequired
 from flask.views import View
@@ -13,16 +13,21 @@ from wtforms.validators import InputRequired
 from parseToCSV import *
 import os
 import pandas as pd
-from flask import Flask, request, redirect, url_for
 from werkzeug import secure_filename
 from person_class import Person
+import json
+import socket
 
+my_ip=([(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
 
+app.url_map.strict_slashes = False
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
+HOMEPAGE_TEMPLATE = "homepage.html"
 SURVEY_TEMPLATE = "survey.html"
 RESULTS_TEMPLATE = "results.html"
 NAME_FILE = "names.csv"
@@ -57,7 +62,7 @@ def tannersReadFileGetNamesFunction(filepath):
         people.append(person)
 
     for individual in people:
-        names_to_return.append(individual.get_name())
+        names_to_return.append("%s%d" %(individual.get_name(), individual.id_num))
 
     return names_to_return
 
@@ -67,7 +72,7 @@ def GetQuestionNameFromTextFile(filepath):
     question = file.read()
     return question
 
-def GetFormFromName(name, survey_folders): 
+def GetFormFromName(name, survey_folders):
     #print(name)
     folder_path = os.path.join(survey_folders, name)
     #print(folder_path)
@@ -92,15 +97,17 @@ class MultiCheckboxField(SelectMultipleField):
 #Class for the survey.
 class SurveyForm(Form):
     name = SelectField('Please select who you are. Type your name after clicking the drop down box!', validators = [InputRequired()])
-    Choices = MultiCheckboxField("", validators = [InputRequired()])
+    search = TextField('Enter Name', id='searchbar')
+    Choices = MultiCheckboxField("", validators = [InputRequired()], id='selector')
+    #choice = SelectField('Select a Name', validators = [InputRequired()], id='selector')
     submit = SubmitField('submit')
 
 
 class CreateSurvey(Form):
-    survey_create_name = TextField('What is the Name of the Survey? :')
-    question_name = TextField('What should the name of the question be? :')
-    csv_upload = FileField('Enter File plz')
-    submit = SubmitField('submit')
+    survey_create_name = TextField('Please enter the title of this survey:')
+    question_name = TextField('Please enter your question prompt:')
+    csv_upload = FileField('Upload CSV File')
+    submit = SubmitField('Create Survey')
 
 
 
@@ -119,10 +126,15 @@ def createSurveyDirectory(path_to_new_folder, question_name):
     print('directory and text files created')
 
 
+@app.route('/')
+def homepage():
+    return render_template(HOMEPAGE_TEMPLATE)
 
 
-@app.route('/admin', methods=['get', 'post'])
-def adminpage():
+
+
+@app.route('/createSurvey', methods=['get', 'post'])
+def createSurveyPage():
     form = CreateSurvey()
     print('Survey Created')
     if request.method == 'POST':
@@ -143,7 +155,12 @@ def adminpage():
             file.save(os.path.join(path_to_new_folder, NAME_FILE))
             print(os.path.join(path_to_new_folder, NAME_FILE))
             print('file saved')
-            return 'thanks! you can now send your survey out at "_______/{}"'.format(folder_name)
+            url = request.url
+            newstring = url.replace('/admin', '/{}'.format(folder_name))
+            string = """
+            Thanks! you can now send your survey out at <a href='{}'>{}</a>  and  you can see and download your results at <a href='{}/manager'>{}/manager</a>
+            """.format(newstring, newstring, newstring, newstring)
+            return string
 
     return render_template(ADMIN_TEMPLATE, form=form)
 
@@ -161,9 +178,9 @@ def my_view_func(name):
     form.Choices.choices = [(e, e) for e in nameslist]
     print('choices assigned')
     form.name.choices =  [(e, e) for e in nameslist]
+    #form.choice.choices =  [(e, e) for e in nameslist]
     print('name assigned')
-    return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink)
-
+    return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
 ### This page handles our data and writes it to the intermediate file path
 @app.route('/<name>/handle_data', methods=['POST'])
@@ -172,6 +189,7 @@ def handle_data(name):
     #print(name)
     print('we made it to handle_data')
     Person = request.form['name']
+    #Choices = [request.form['choice']]
     Choices = request.form.getlist('Choices')
     print('person is :')
     print(Person)
@@ -188,19 +206,17 @@ def handle_data(name):
 
 
 
-@app.route('/<name>/manager')
-def render_manager(name):
+@app.route('/<name>/results')
+def render_results(name):
     questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
-    
+
     survey = os.path.join(SURVEY_DIR, name)
     csv_path = os.path.join(survey, CSV_NAME)
     input_path = os.path.join(survey, NAME_FILE)
     out_path = os.path.join(survey, OUT_FILE)
-    
-    generateMatrix.run_all(input_path, out_path, csv_path)
-    
+    generateMatrix.run_all(nameslist, out_path, csv_path)
     title=name
-       
+
     question=questiontext
 
     df = pd.read_csv(csv_path)
@@ -216,7 +232,8 @@ def download_csv(survey_name):
     with open(file_path) as csvFile:
         makeCSV = csvFile.read()
     response = make_response(makeCSV)
-    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    download_name = 'AdjacencyMatrix' + survey_name + '.csv'
+    cd = 'attachment; filename=' + download_name
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
@@ -227,11 +244,12 @@ def download_csv_directional(survey_name):
     with open(file_path) as csvFile:
         makeCSV = csvFile.read()
     response = make_response(makeCSV)
-    cd = 'attachment; filename=AdjacencyMatrix.csv'
+    download_name = 'DirectionalAdjacencyMatrix' + survey_name + '.csv'
+    cd = 'attachment; filename=' + download_name
     response.headers['Content-Disposition'] = cd
     response.mimetype='text/csv'
     return response
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True, host=my_ip, port=3134)
