@@ -9,6 +9,7 @@ In order to run this application you first need to pip3 install some libraries:
 ```
 pip3 install pandas --user
 pip3 install flask
+pip3 install flask-wtf
 ```
 
 # Contributors
@@ -48,3 +49,10 @@ In order for the program to run the csv must be named "names.csv" and be formate
 
 # Admin view
 If you are an administrator and would like to view the adjacency matrix, type in "/manager" at the end of the current URL. This will pull up the manager view of the matrix that has been updated based on surveys recieved. You also will have the option to download a CSV file of the results.
+
+# Server
+To use your computer as a server, go to the file containing app.py and then run the following commands, replacing "0.0.0.0" with your device's current IP address. 
+```
+$ export FLASK_APP=app.py
+$ flask run --host=0.0.0.0 
+```
