@@ -25,6 +25,8 @@ my_ip=([(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [so
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
 
+app.url_map.strict_slashes = False
+
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 SURVEY_TEMPLATE = "survey.html"
@@ -101,10 +103,10 @@ class SurveyForm(Form):
 
 
 class CreateSurvey(Form):
-    survey_create_name = TextField('What is the Name of the Survey? :')
-    question_name = TextField('What should the name of the question be? :')
-    csv_upload = FileField('Enter File plz')
-    submit = SubmitField('submit')
+    survey_create_name = TextField('Please enter the title of this survey:')
+    question_name = TextField('Please enter your question prompt:')
+    csv_upload = FileField('Upload CSV File')
+    submit = SubmitField('Create Survey')
 
 
 
