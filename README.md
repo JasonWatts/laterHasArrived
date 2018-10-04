@@ -3,7 +3,7 @@ Software Development Project for Westmont's CS120 2018
 Web app that lets you take a simple survey then creates an adjacency matrix from the data collected.
 
 # TODO:
-~~1. Update REAMDE: go to "...../admin"~~
+<strike>1. Update REAMDE: go to "...../admin"</strike>
 2. What should the  question promt be?
 3. Add home page
    * remove the "..../admin" from README
