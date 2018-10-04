@@ -127,8 +127,8 @@ def homepage():
 
 
 
-@app.route('/admin', methods=['get', 'post'])
-def adminpage():
+@app.route('/createSurvey', methods=['get', 'post'])
+def createSurveyPage():
     form = CreateSurvey()
     print('Survey Created')
     if request.method == 'POST':
@@ -194,8 +194,8 @@ def handle_data(name):
 
 
 
-@app.route('/<name>/manager')
-def render_manager(name):
+@app.route('/<name>/results')
+def render_results(name):
     questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
     
     survey = os.path.join(SURVEY_DIR, name)
