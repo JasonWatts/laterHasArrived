@@ -3,18 +3,18 @@ Software Development Project for Westmont's CS120 2018
 Web app that lets you take a simple survey then creates an adjacency matrix from the data collected.
 
 # TODO:
-* Update REAMDE: go to "...../admin"
-* What should the  question promt be?
-* Add home page
- * remove the "..../admin" from README
-* In README move csv req to top
-* Add extra info for CSV upload button
-* Clarify successfull test addition responce
-* Add spaces for names
-* Remove 'your' name after you choose it
-* Add flag for ignoring trailing slash in URL
-* Document all URLs to type in the url bar
-* Clarify between both csv download buttons(include survey name in the downloaded file)
+1. Update REAMDE: go to "...../admin"
+2. What should the  question promt be?
+3. Add home page
+  * remove the "..../admin" from README
+4. In README move csv req to top
+5. Add extra info for CSV upload button
+6. Clarify successfull test addition responce
+7. Add spaces for names
+8. Remove 'your' name after you choose it
+9. Add flag for ignoring trailing slash in URL
+10. Document all URLs to type in the url bar
+11. Clarify between both csv download buttons(include survey name in the downloaded file)
 
 # Requirements
 
