@@ -5,7 +5,7 @@
  </head>
 <body>
 
-<form action="{{ redirectlink }}" method="post" novalidate>
+<form action="{{ redirectlink }}" method="post" onclick="check();" novalidate>
   {{ form.hidden_tag() }}
   <p>
     <b>{{ form.name.label }}</b><br>
@@ -44,6 +44,36 @@ function filter() {
   yourSelect.options[ yourSelect.selectedIndex ].value
 }*/
 </script>
+<script type="text/javascript">
+function getInputByValue(value){
+var allInputs = document.getElementsByTagName("input")
+var results = [];
+    for(var x=0;x<allInputs.length;x++)
+        if(allInputs[x].value == value)
+            results.push(allInputs[x]);
+    return results;
+
+
+ }
+
+
+function check(element) {
+var e = document.getElementById("name");
+var PersonSelected = e.options[e.selectedIndex].value;
+var e = document.getElementById("selector")
+console.log(PersonSelected);
+console.log(getInputByValue(PersonSelected)[0]);
+var elem = getInputByValue(PersonSelected)[0];
+var allInputs = document.getElementsByTagName("input")
+for (var i = 0; i < allInputs.length; i++) {
+        allInputs[i].disabled = false;
+    }
+document.getElementById(elem.id).disabled = true;
+
+}
+
+</script>
+
 
 </body>
 </html>
