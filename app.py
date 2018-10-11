@@ -38,6 +38,8 @@ ADMIN_TEMPLATE = "adminpage.html"
 CSV_DIRECTIONAL = "adjacency_directional.csv"
 SURVEY_DIR = os.path.join(dir_path, "./surveys")
 
+participants = {}
+
 #Ensure the survey directory exists
 if not os.path.exists(SURVEY_DIR):
     os.makedirs(SURVEY_DIR)
@@ -60,6 +62,7 @@ def tannersReadFileGetNamesFunction(filepath):
         else:
             person = Person(i, name_info[0], name_info[1])
         people.append(person)
+        participants[person.id_num] = person
 
     for individual in people:
         names_to_return.append("%s%d" %(individual.get_name(), individual.id_num))
@@ -175,9 +178,15 @@ def my_view_func(name):
     print(request.url)
     redirectlink = request.url + '/handle_data'
     print('form created')
-    form.Choices.choices = [(e, e) for e in nameslist]
+    display_list = []
+    for key in participants:
+        temp = str(participants[key].get_name())
+        display_list.append((key,temp))
+    form.Choices.choices = display_list
+    #form.Choices.choices = [(e, e) for e in nameslist]
     print('choices assigned')
-    form.name.choices =  [(e, e) for e in nameslist]
+    #form.name.choices =  [(e, e) for e in nameslist]
+    form.name.choices = display_list
     #form.choice.choices =  [(e, e) for e in nameslist]
     print('name assigned')
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
