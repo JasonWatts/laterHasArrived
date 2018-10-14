@@ -35,7 +35,7 @@ def createSurveyPage():
             print(os.path.join(path_to_new_folder, NAME_FILE))
             print('file saved')
             url = request.url
-            newstring = url.replace('/createSurvey', '/{}'.format(folder_name))
+            newstring = url.replace('/createSurvey', '/survey/{}'.format(folder_name))
             string = """
             Thanks! you can now send your survey out at <a href='{}'>{}</a>  and  you can see and download your results at <a href='{}/results'>{}/results</a>
             """.format(newstring, newstring, newstring, newstring)

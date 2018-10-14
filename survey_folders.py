@@ -16,7 +16,7 @@ ADMIN_TEMPLATE = "adminpage.html"
 CSV_DIRECTIONAL = "adjacency_directional.csv"
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-SURVEY_DIR = os.path.join(dir_path, "./surveys") #I don't know why something that isn't a constant is being defined like it is a constant, but I'm not going to touch this while I'm splitting up files.
+SURVEY_DIR = os.path.join(dir_path, "surveys") #I don't know why something that isn't a constant is being defined like it is a constant, but I'm not going to touch this while I'm splitting up files.
 
 #Ensure the survey directory exists
 if not os.path.exists(SURVEY_DIR):

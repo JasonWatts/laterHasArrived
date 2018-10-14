@@ -11,16 +11,17 @@ class MultiCheckboxField(SelectMultipleField):
 
 #Class for the survey.
 class SurveyForm(Form):
-    name = SelectField('Please select who you are. Type your name after clicking the drop down box!', validators = [InputRequired()])
+    name = SelectField('Please select who you are. Type your name after clicking the drop down box!', validators = [InputRequired()], id='name_select')
     search = TextField('Enter Name', id='searchbar')
-    Choices = MultiCheckboxField("", validators = [InputRequired()], id='selector')
+    choices = MultiCheckboxField("", validators = [InputRequired()], id='selector')
     submit = SubmitField('submit')
 
 take_survey = Blueprint('take_survey', __name__, template_folder='templates')
 
 # This is where the participant will enter in the survey
-@take_survey.route('/<name>')
+@take_survey.route('/survey/<name>') #Changing "/<name>" to "/survey/<name>" both for clarity and because the former consistently screws with browsers that try to make requests for favicons.
 def my_view_func(name):
+    if name == "favicon.ico": return
     questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
     print('GetFormFromName Worked')
     form = SurveyForm()
@@ -28,7 +29,7 @@ def my_view_func(name):
     print(request.url)
     redirectlink = request.url + '/handle_data'
     print('form created')
-    form.Choices.choices = [(e, e) for e in nameslist]
+    form.choices.choices = [(e, e) for e in nameslist]
     print('choices assigned')
     form.name.choices =  [(e, e) for e in nameslist]
     #form.choice.choices =  [(e, e) for e in nameslist]
@@ -36,14 +37,14 @@ def my_view_func(name):
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
 ### This page handles our data and writes it to the intermediate file path
-@take_survey.route('/<name>/handle_data', methods=['POST'])
+@take_survey.route('/survey/<name>/handle_data', methods=['POST'])
 def handle_data(name):
     print(request.form)
     #print(name)
     print('we made it to handle_data')
     Person = request.form['name']
     #Choices = [request.form['choice']]
-    Choices = request.form.getlist('Choices')
+    Choices = request.form.getlist('choices')
     print('person is :')
     print(Person)
     print('Choices for ourput are:')

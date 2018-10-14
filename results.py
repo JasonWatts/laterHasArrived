@@ -7,7 +7,7 @@ from survey_folders import *
 
 results = Blueprint('results', __name__, template_folder='templates')
 
-@results.route('/<name>/results')
+@results.route('/survey/<name>/results')
 def render_results(name):
     questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
 
