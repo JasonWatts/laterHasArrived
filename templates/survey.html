@@ -5,7 +5,7 @@
  </head>
 <body>
 
-<form action="{{ redirectlink }}" method="post" onclick="check();" novalidate>
+<form action="{{ redirectlink }}" method="post" novalidate>
   {{ form.hidden_tag() }}
   <p>
     <b>{{ form.name.label }}</b><br>
@@ -32,7 +32,9 @@ function filter() {
   selector = document.getElementById("selector");
   a = selector.getElementsByTagName("li");
   for (i = 0; i < a.length; i++) {
-    if (a[i].innerHTML.toUpperCase().indexOf(filter) === -1 || a[i].innerHTML.toUpperCase() === selected_name) {
+    /*console.log(a[i].innerText.toUpperCase())
+    console.log(selected_name)*/
+    if (a[i].innerHTML.toUpperCase().indexOf(filter) === -1 || a[i].innerText.toUpperCase().trim() === selected_name) {
       a[i].style.display = "none";
     } else {
       a[i].style.display = "";
@@ -41,7 +43,7 @@ function filter() {
 }
 </script>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">
 function getInputByValue(value){
 var allInputs = document.getElementsByTagName("input")
 var results = [];
@@ -69,7 +71,7 @@ document.getElementById(elem.id).disabled = true;
 
 }
 
-</script>
+</script>-->
 
 
 </body>
