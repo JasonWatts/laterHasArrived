@@ -223,7 +223,7 @@ def render_results(name):
     csv_path = os.path.join(survey, CSV_NAME)
     input_path = os.path.join(survey, NAME_FILE)
     out_path = os.path.join(survey, OUT_FILE)
-    generateMatrix.run_all(nameslist, out_path, csv_path)
+    generateMatrix.run_all(participants, out_path, csv_path)
     title=name
 
     question=questiontext

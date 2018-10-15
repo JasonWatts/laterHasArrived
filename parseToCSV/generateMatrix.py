@@ -42,7 +42,16 @@ def parse(file):
     intermediateFile.close()
     return intermediateNames
 
-def initializeMatrix(content):
+def initializeMatrix(participants):
+    
+    
+    csv_matrix_names = []
+    
+    for key in participants:
+        print("this is really us")
+        print participants[key].get_name()
+        csv_matrix_names.append(participants[key].get_name())
+        
     """
     Turn a list of names separated by '\n' into an empty adjacency matrix
     
@@ -62,14 +71,14 @@ def initializeMatrix(content):
     
 
     #Sanitize data of \n and spaces (currently spaces removal is commented out)
-    content = [x.strip('\n') for x in content]
-    content = [x.replace(",","") for x in content]
-    
+   
     #crete empty pandas dataframe
-    df = pd.DataFrame(0, index=content, columns=content)
+    df = pd.DataFrame(0, index=csv_matrix_names, columns=csv_matrix_names)
     return df
     
-def fillDF(df, intermediateNames, directional=False):
+def fillDF(participants, df, intermediateNames, directional=False):
+    
+  
     """
     Fill dataframe df with information from intermediateNames.
     
@@ -95,12 +104,15 @@ def fillDF(df, intermediateNames, directional=False):
     """
     
     #iterate through dictionary names
+    print("this is us")
+    print(participants)
+    
     for keyName, value in intermediateNames.items():
         for valueName in value:
             #set both cells to 1 which show the relation between each name 
-            df.at[keyName, valueName] = 1
+            df.at[participants[int(keyName)].get_name(), participants[int(valueName)].get_name()] = 1
             if not directional:
-                df.at[valueName, keyName] = 1
+                df.at[participants[int(valueName)].get_name(), participants[int(keyName)].get_name()] = 1
 
     return df
     
@@ -128,14 +140,14 @@ def makeCSV(df, file_path):
         raise Exception("File name must be of type '.csv'")
     
 
-def run_all(nameslist, intermediate_file, csv_path):
+def run_all(participants, intermediate_file, csv_path):
     parsed_file = parse(intermediate_file)
-    empty_df1 = initializeMatrix(nameslist)
+    empty_df1 = initializeMatrix(participants) #removed names list
     empty_df2 = empty_df1.copy()
 
-    full_df = fillDF(empty_df1, parsed_file)
+    full_df = fillDF(participants, empty_df1, parsed_file)
     makeCSV(full_df, csv_path)
-    directional_df = fillDF(empty_df2, parsed_file, directional=True)
+    directional_df = fillDF(participants, empty_df2, parsed_file, directional=True)
     makeCSV(directional_df, csv_path[:-4] + "_directional.csv")
 
 
