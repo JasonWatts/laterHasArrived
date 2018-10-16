@@ -1,3 +1,8 @@
+#coding: utf8
+#
+# A class to keep track of the multiple identifiers associated with one of the people in the adjacency matrix.
+#
+
 class Person:
     def __init__(self, id_num, last, first, uid1=None, uid2=None):
         self.id_num = id_num

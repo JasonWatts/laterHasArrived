@@ -1,29 +1,23 @@
 #coding: utf8
 #
-#Serves the user a web form created from (1) an html template, and (2) a file listing the available names.
-#Writes a respondents results to a single line of a "response.txt" dump file.
+# Assemles the blueprints for each web page and hosts the application.
 #
 
-from flask import Flask, render_template, request, make_response, Response, redirect, url_for
-from flask_wtf import Form
-from flask_wtf.file import FileField, FileRequired
-from flask.views import View
-from wtforms import widgets, SelectField, SelectMultipleField, SubmitField, TextField
-from wtforms.validators import InputRequired
-from parseToCSV import *
-import os
-import pandas as pd
-from werkzeug import secure_filename
-from person_class import Person
-import json
+from flask import Flask
 import socket
 
-my_ip=([(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1])
+from home import home
+from create_survey import create_survey
+from take_survey import take_survey
+from results import results
+from download_csv import download_csv
+
+my_ip=([(s.connect(('8.8.8.8', 53)), s.getsockname()[0], s.close()) for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]][0][1]) #Get an IP that others can connect to.
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
-
 app.url_map.strict_slashes = False
+
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -259,6 +253,11 @@ def download_csv_directional(survey_name):
     response.mimetype='text/csv'
     return response
 
+app.register_blueprint(home)
+app.register_blueprint(create_survey)
+app.register_blueprint(take_survey)
+app.register_blueprint(results)
+app.register_blueprint(download_csv)
 
 if __name__ == "__main__":
     app.run(debug=True, host=my_ip, port=3134)

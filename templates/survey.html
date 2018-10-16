@@ -5,46 +5,45 @@
  </head>
 <body>
 
-<form action="{{ redirectlink }}" method="post" onclick="check();" novalidate>
+<form action="{{ redirectlink }}" method="post" novalidate>
   {{ form.hidden_tag() }}
   <p>
     <b>{{ form.name.label }}</b><br>
-    {{ form.name(size=1) }}
+    {{ form.name(size=1, onchange="filter()") }}
   </p>
   <p>
     <b>{{ questiontext }}</b><br>
     {{ form.search(onkeyup="filter()", placeholder="Search...") }}<br>
     <div style="width: 600px; height: 200px; overflow-y: scroll;">
-    {{ form.Choices() }}
+    {{ form.choices() }}
     </div>
-    <!--form.choice(size=10)-->
-    <!--<button type="button" onclick="selectName()">Select Name</button>-->
   </p>
   <p>{{ form.submit() }}</p>
 </form>
 
-<!--Script based on a modified example from W3 schools (https://www.w3schools.com/howto/howto_js_filter_dropdown.asp)-->
+<!--Script based on a significantly modified example from W3 schools (https://www.w3schools.com/howto/howto_js_filter_dropdown.asp)-->
 <script>
 function filter() {
-  var input, filter, ul, li, a, i;
+  var dropdown, selected_name, input, filter, ul, li, a, i;
+  dropdown = document.getElementById("name_select");
+  selected_name = dropdown.value.toUpperCase();
   input = document.getElementById("searchbar");
   filter = input.value.toUpperCase();
   selector = document.getElementById("selector");
   a = selector.getElementsByTagName("li");
   for (i = 0; i < a.length; i++) {
-    if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-      a[i].style.display = "";
-    } else {
+    /*console.log(a[i].innerText.toUpperCase())
+    console.log(selected_name)*/
+    if (a[i].innerHTML.toUpperCase().indexOf(filter) === -1 || a[i].innerText.toUpperCase().trim() === selected_name) {
       a[i].style.display = "none";
+    } else {
+      a[i].style.display = "";
     }
   }
 }
-/*function selectName() {
-  selector = document.getElementById("selector");
-  yourSelect.options[ yourSelect.selectedIndex ].value
-}*/
 </script>
-<script type="text/javascript">
+
+<!--<script type="text/javascript">
 function getInputByValue(value){
 var allInputs = document.getElementsByTagName("input")
 var results = [];
@@ -72,7 +71,7 @@ document.getElementById(elem.id).disabled = true;
 
 }
 
-</script>
+</script>-->
 
 
 </body>
