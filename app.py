@@ -45,7 +45,7 @@ if not os.path.exists(SURVEY_DIR):
     os.makedirs(SURVEY_DIR)
 
 
-def tannersReadFileGetNamesFunction(filepath):
+def read_names(filepath):
     csv = open(filepath)
     names = []
     people = []
@@ -85,7 +85,7 @@ def GetFormFromName(name, survey_folders):
     #print(inputfilepath)
     intermediatefilepath = os.path.join(folder_path, OUT_FILE)
     #print(intermediatefilepath)
-    nameslist = tannersReadFileGetNamesFunction(inputfilepath)
+    nameslist = read_names(inputfilepath)
     #print(nameslist)
     questiontext = GetQuestionNameFromTextFile(questionnamepath)
     #print(questiontext)

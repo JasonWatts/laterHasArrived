@@ -48,8 +48,6 @@ def initializeMatrix(participants):
     csv_matrix_names = []
     
     for key in participants:
-        print("this is really us")
-        print participants[key].get_name()
         csv_matrix_names.append(participants[key].get_name())
         
     """
@@ -104,8 +102,7 @@ def fillDF(participants, df, intermediateNames, directional=False):
     """
     
     #iterate through dictionary names
-    print("this is us")
-    print(participants)
+
     
     for keyName, value in intermediateNames.items():
         for valueName in value:
