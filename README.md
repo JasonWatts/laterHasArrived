@@ -17,7 +17,7 @@ to return to survey monkey tab from which this started (Christian)
 1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya)
 1. [Create] Allow second and subsequent questions within single survey;
 currently second/subsequent questions in an existing survey generate errors (Save for later/Walker and Heather?)
-1. [General] Maintain README.md, keeping it aligned with project progress (Kyle)
+1. ~~[General] Maintain README.md, keeping it aligned with project progress~~
 1. ~~[README] Consolidate "Server" and "Getting started" into a "Running" section~~
 1. ~~[README] Expand "Requirements" with Python 3.5, Internet connection accessible to responders, etc.~~
 1. ~~[README] "CSV" should probably be moved earlier and may not merit its own section;
@@ -29,7 +29,7 @@ for each of the available URLs (Kyle)
 1. ~~What should the question prompt be?~~
 1. Merge home page 
    * remove the "..../admin" from README
-1. In README move csv req to top (Kyle)
+1. ~~In README move csv req to top~~
 1. ~~Add extra info for CSV upload button~~
 1. ~~Clarify successful test addition response~~
 1. ~~Add spaces between first and last names, or commas between last and first~~
