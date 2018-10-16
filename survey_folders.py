@@ -23,11 +23,10 @@ SURVEY_DIR = os.path.join(dir_path, "surveys") #I don't know why something that 
 if not os.path.exists(SURVEY_DIR):
     os.makedirs(SURVEY_DIR)
 
-def tannersReadFileGetNamesFunction(filepath):
+def read_names(filepath):
     csv = open(filepath)
     names = []
-    people = []
-    names_to_return = []
+    participants = {}
     for line in csv:
         names.append(line.strip("\n"))
     csv.close()
@@ -39,12 +38,9 @@ def tannersReadFileGetNamesFunction(filepath):
             person = Person(i, name_info[0], name_info[1], name_info[2])
         else:
             person = Person(i, name_info[0], name_info[1])
-        people.append(person)
+        participants[person.id_num] = person
 
-    for individual in people:
-        names_to_return.append("%s%d" %(individual.get_name(), individual.id_num))
-
-    return names_to_return
+    return participants
 
 
 def GetQuestionNameFromTextFile(filepath):
@@ -62,11 +58,11 @@ def GetFormFromName(name, survey_folders):
     #print(inputfilepath)
     intermediatefilepath = os.path.join(folder_path, OUT_FILE)
     #print(intermediatefilepath)
-    nameslist = tannersReadFileGetNamesFunction(inputfilepath)
+    participants = read_names(inputfilepath)
     #print(nameslist)
     questiontext = GetQuestionNameFromTextFile(questionnamepath)
     #print(questiontext)
-    return questiontext, inputfilepath, nameslist, intermediatefilepath
+    return questiontext, inputfilepath, participants, intermediatefilepath
 
 def createSurveyDirectory(path_to_new_folder, question_name):
     os.mkdir(path_to_new_folder)

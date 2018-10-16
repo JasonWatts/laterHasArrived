@@ -27,11 +27,15 @@ take_survey = Blueprint('take_survey', __name__, template_folder='templates')
 # This is where the participant will enter in the survey
 @take_survey.route('/survey/<name>') #Should not just be "/<name>" because browsers make requests to "/favicon.ico"
 def my_view_func(name):
-    questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
+    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
     form = SurveyForm()
     redirectlink = request.url + '/handle_data'
-    form.choices.choices = [(e, e) for e in nameslist] #Populate the checkbox options with the available names.
-    form.name.choices =  [(e, e) for e in nameslist]   #Populate the name dropdown options with the available names.
+    for key in participants:
+        print(key)
+        print(participants[key].get_name())
+    display_list = [(key, participants[key].get_name()) for key in participants] #Populate the name dropdown and checkbox options with the available names.
+    form.choices.choices = display_list
+    form.name.choices =  display_list
     print("served form for /survey/"+name)
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
@@ -41,7 +45,7 @@ def handle_data(name):
     person = request.form['name'] #Get the participant's name.
     choices = request.form.getlist('choices') #Get the list of people the participant knows.
     print("recieved a response for /survey/"+name+" from "+person)
-    questiontext, inputfilepath, nameslist, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
+    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
     with open(intermediatefilepath, "a") as out:
         out.write("{}: {}\n".format(person, ', '.join(choices))) #Write the response as a new line into an intermediate file, in the format "participant: name1, name2, name3"
     print("response recorded")
