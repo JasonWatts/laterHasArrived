@@ -7,9 +7,8 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 which should not be treated as an actual participant
 1. (DONE) [Create] The prompt of the names.csv file should mention "file containing names of participants" 
 1. [Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table
-1. [Respond] Remove (not just disable) responder's name from selection options
+1. (DONE) [Respond] Remove (not just disable) responder's name from selection options
 1. [Respond] Remove the assigned ID suffix in names lists
-1. 
 1. [Respond] On survey-submit, resulting page should also prompt responder
 to return to survey monkey tab from which this started
 1. [Respond] Display extra identifying name info only when duplicate names exist
