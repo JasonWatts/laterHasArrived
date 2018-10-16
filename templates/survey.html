@@ -24,17 +24,15 @@
 <!--Script based on a significantly modified example from W3 schools (https://www.w3schools.com/howto/howto_js_filter_dropdown.asp)-->
 <script>
 function filter() {
-  var dropdown, selected_name, input, filter, ul, li, a, i;
+  var dropdown, selected_person, input, filter, ul, li, a, i;
   dropdown = document.getElementById("name_select");
-  selected_name = dropdown.value.toUpperCase();
+  selected_person = dropdown.value;
   input = document.getElementById("searchbar");
   filter = input.value.toUpperCase();
   selector = document.getElementById("selector");
   a = selector.getElementsByTagName("li");
   for (i = 0; i < a.length; i++) {
-    /*console.log(a[i].innerText.toUpperCase())
-    console.log(selected_name)*/
-    if (a[i].innerHTML.toUpperCase().indexOf(filter) === -1 || a[i].innerText.toUpperCase().trim() === selected_name) {
+    if (a[i].innerHTML.toUpperCase().indexOf(filter) === -1 || a[i].getElementsByTagName("input")[0].value === selected_person) {
       a[i].style.display = "none";
     } else {
       a[i].style.display = "";
@@ -42,37 +40,6 @@ function filter() {
   }
 }
 </script>
-
-<!--<script type="text/javascript">
-function getInputByValue(value){
-var allInputs = document.getElementsByTagName("input")
-var results = [];
-    for(var x=0;x<allInputs.length;x++)
-        if(allInputs[x].value == value)
-            results.push(allInputs[x]);
-    return results;
-
-
- }
-
-
-function check(element) {
-var e = document.getElementById("name");
-var PersonSelected = e.options[e.selectedIndex].value;
-var e = document.getElementById("selector")
-console.log(PersonSelected);
-console.log(getInputByValue(PersonSelected)[0]);
-var elem = getInputByValue(PersonSelected)[0];
-var allInputs = document.getElementsByTagName("input")
-for (var i = 0; i < allInputs.length; i++) {
-        allInputs[i].disabled = false;
-    }
-document.getElementById(elem.id).disabled = true;
-
-}
-
-</script>-->
-
 
 </body>
 </html>
