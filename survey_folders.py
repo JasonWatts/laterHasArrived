@@ -1,3 +1,4 @@
+#coding: utf8
 #
 # Defines and helper functions for dealing with the file structure of this project.
 #
