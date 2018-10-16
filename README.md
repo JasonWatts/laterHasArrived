@@ -4,38 +4,38 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 # TODO:
 1. [Create] The input names.csv file of participant names should have a header row,
-which should not be treated as an actual participant
-1. (DONE) [Create] The prompt of the names.csv file should mention "file containing names of participants" 
-1. [Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table
-1. (DONE) [Respond] Remove (not just disable) responder's name from selection options
-1. [Respond] Remove the assigned ID suffix in names lists
+which should not be treated as an actual participant (Tanner)
+1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants" ~~
+1. [Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table (In progress of merging)
+1. ~~[Respond] Remove (not just disable) responder's name from selection options~~
+1. ~~[Respond] Remove the assigned ID suffix in names lists ~~
 1. [Respond] On survey-submit, resulting page should also prompt responder
-to return to survey monkey tab from which this started
-1. [Respond] Display extra identifying name info only when duplicate names exist
+to return to survey monkey tab from which this started (Christian)
+1. [Respond] Display extra identifying name info only when duplicate names exist (Tanner and Jared)
 1. [Respond] Display extra identifying info for all names
-(possibly minus names that already incorporate such info) on hover
-1. [Create/Respond/Results] Improve appearance fonts/margins/styling/...
+(possibly minus names that already incorporate such info) on hover (Save for later)
+1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya)
 1. [Create] Allow second and subsequent questions within single survey;
-currently second/subsequent questions in an existing survey generate errors
-1. [General] Maintain README.md, keeping it aligned with project progress
+currently second/subsequent questions in an existing survey generate errors (Save for later/Walker and Heather?)
+1. [General] Maintain README.md, keeping it aligned with project progress (Kyle)
 1. ~~[README] Consolidate "Server" and "Getting started" into a "Running" section~~
 1. ~~[README] Expand "Requirements" with Python 3.5, Internet connection accessible to responders, etc.~~
 1. ~~[README] "CSV" should probably be moved earlier and may not merit its own section;
 should mention a header row; should not say "unique-id1" because these are not unique
 but collectively uniquely identify an individual~~
 1. [README] Update "Admin view" section, maybe eliminate in favor of documentation
-for each of the available URLs
+for each of the available URLs (Kyle)
 1. ~~Update REAMDE: go to "...../admin"~~
-1. What should the  question prompt be?
-1. Add home page
+1. ~~What should the question prompt be?~~
+1. Merge home page 
    * remove the "..../admin" from README
-1. In README move csv req to top
-1. Add extra info for CSV upload button
-1. Clarify successful test addition response
-1. Add spaces between first and last names, or commas between last and first
-1. Add flag for ignoring trailing slash in URL
-1. Document all URLs to type in the URL bar
-1. Clarify between both csv download buttons(include survey name in the downloaded file)
+1. In README move csv req to top (Kyle)
+1. ~~Add extra info for CSV upload button~~
+1. ~~Clarify successful test addition response~~
+1. ~~Add spaces between first and last names, or commas between last and first~~
+1. ~~Add flag for ignoring trailing slash in URL~~
+1. Document all URLs to type in the URL bar (Kyle)
+1. ~~Clarify between both csv download buttons(include survey name in the downloaded file)~~
 
 # Requirements
 Python 3.5 or later: https://www.python.org/downloads/
@@ -46,6 +46,7 @@ In order to run this application you first need to pip3 install these libraries:
 pip3 install pandas --user
 pip3 install flask
 pip3 install flask-wtf
+csv file of names with between 2-4 columns
 ```
 
 # Contributors
