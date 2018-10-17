@@ -16,7 +16,7 @@ to return to survey monkey tab from which this started (Christian)~~
 (possibly minus names that already incorporate such info) on hover (Save for later)
 1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya)
 1. [Create] Allow second and subsequent questions within single survey;
-currently second/subsequent questions in an existing survey generate errors (Save for later/Walker and Heather?)
+currently second/subsequent questions in an existing survey generate errors (Walker and Heather, will be done by Monday)
 1. ~~[General] Maintain README.md, keeping it aligned with project progress~~
 1. ~~[README] Consolidate "Server" and "Getting started" into a "Running" section~~
 1. ~~[README] Expand "Requirements" with Python 3.5, Internet connection accessible to responders, etc.~~
