@@ -9,8 +9,8 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 1. ~~[Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table (In progress of merging)~~
 1. ~~[Respond] Remove (not just disable) responder's name from selection options~~
 1. ~~[Respond] Remove the assigned ID suffix in names lists~~
-1. [Respond] On survey-submit, resulting page should also prompt responder
-to return to survey monkey tab from which this started (Christian)
+1. ~~[Respond] On survey-submit, resulting page should also prompt responder
+to return to survey monkey tab from which this started (Christian)~~
 1. ~~[Respond] Display extra identifying name info only when duplicate names exist (Tanner and Jared)~~
 1. [Respond] Display extra identifying info for all names
 (possibly minus names that already incorporate such info) on hover (Save for later)
