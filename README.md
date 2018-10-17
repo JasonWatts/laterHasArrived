@@ -23,18 +23,18 @@ currently second/subsequent questions in an existing survey generate errors (Sav
 1. ~~[README] "CSV" should probably be moved earlier and may not merit its own section;
 should mention a header row; should not say "unique-id1" because these are not unique
 but collectively uniquely identify an individual~~
-1. [README] Update "Admin view" section, maybe eliminate in favor of documentation
-for each of the available URLs (Kyle)
+1. ~~[README] Update "Admin view" section, maybe eliminate in favor of documentation
+for each of the available URLs (Kyle)~~
 1. ~~Update REAMDE: go to "...../admin"~~
 1. ~~What should the question prompt be?~~
-1. Merge home page 
-   * remove the "..../admin" from README
+1. ~~Merge home page 
+   * remove the "..../admin" from README~~
 1. ~~In README move csv req to top~~
 1. ~~Add extra info for CSV upload button~~
 1. ~~Clarify successful test addition response~~
 1. ~~Add spaces between first and last names, or commas between last and first~~
 1. ~~Add flag for ignoring trailing slash in URL~~
-1. Document all URLs to type in the URL bar (Kyle)
+1. ~~Document all URLs to type in the URL bar (Kyle)~~
 1. ~~Clarify between both csv download buttons(include survey name in the downloaded file)~~
 
 # Requirements
