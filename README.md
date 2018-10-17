@@ -85,7 +85,18 @@ The output should display a line similar to the following:
 Finally copy and paste the URL displayed in your terminal into a browser.
 
 
-# Admin view
-If you are an administrator and would like to view the adjacency matrix, type in "/manager" at the end of the current URL. This will pull up the manager view of the matrix that has been updated based on surveys received. You also will have the option to download a CSV file of the results.
-
+# URLs
+<Host address>
+/
+  Homepage with a button directing to "/createSurvey".
+/createSurvey
+  Create a new survey with a title, a question, and a csv file.
+/survey/<name>
+  Take a survey by filling out the information on the page. Submit the survey response. <name> is the name of a survey as created in ".../createSurvey", where each space in the name is replaced by a single underscore. 
+  .../results
+    View the adjacency table results of a survey in an html table. Download a symmetric or a directional csv of the adjacency matrix for that survey.
+/downloadCSV/<name>
+  Download the symmetric csv file for survey <name>
+/downloadCSV-directional/<name>
+  Download the directional csv file for survey <name>
 
