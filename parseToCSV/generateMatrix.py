@@ -46,9 +46,19 @@ def initializeMatrix(participants):
     
     
     csv_matrix_names = []
-    
+    duplicates = False
+    check_for_duplicates = set()
     for key in participants:
-        csv_matrix_names.append(participants[key].get_name())
+        if (participants[key].get_name() in check_for_duplicates):
+            duplicates = True
+        else:
+            check_for_duplicates.add(participants[key].get_name())
+    if (duplicates):
+        for key in participants:
+            csv_matrix_names.append(participants[key].get_name_and_uid())
+    else:
+        for key in participants:
+            csv_matrix_names.append(participants[key].get_name())
         
     """
     Turn a list of names separated by '\n' into an empty adjacency matrix
@@ -103,16 +113,27 @@ def fillDF(participants, df, intermediateNames, directional=False):
     
     #iterate through dictionary names
 
-    
+    duplicates = False
+    check_for_duplicates = set()
+    for key in participants:
+        if (participants[key].get_name() in check_for_duplicates):
+            duplicates = True
+        else:
+            check_for_duplicates.add(participants[key].get_name())
     for keyName, value in intermediateNames.items():
         for valueName in value:
-            #set both cells to 1 which show the relation between each name 
-            df.at[participants[int(keyName)].get_name(), participants[int(valueName)].get_name()] = 1
-            if not directional:
-                df.at[participants[int(valueName)].get_name(), participants[int(keyName)].get_name()] = 1
+            #set both cells to 1 which show the relation between each name
+            if(duplicates):
+                df.at[participants[int(keyName)].get_name_and_uid(), participants[int(valueName)].get_name_and_uid()] = 1
+                if not directional:
+                    df.at[participants[int(valueName)].get_name_and_uid(), participants[int(keyName)].get_name_and_uid()] = 1
+            else:
+                df.at[participants[int(keyName)].get_name(), participants[int(valueName)].get_name()] = 1
+                if not directional:
+                    df.at[participants[int(valueName)].get_name(), participants[int(keyName)].get_name()] = 1
 
     return df
-    
+
     
 def makeCSV(df, file_path):
     """

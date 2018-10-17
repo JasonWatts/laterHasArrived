@@ -25,6 +25,7 @@ if not os.path.exists(SURVEY_DIR):
 
 def read_names(filepath):
     csv = open(filepath)
+    csv.readline()
     names = []
     participants = {}
     for line in csv:
@@ -38,6 +39,7 @@ def read_names(filepath):
             person = Person(i, name_info[0], name_info[1], name_info[2])
         else:
             person = Person(i, name_info[0], name_info[1])
+        print(person)
         participants[person.id_num] = person
 
     return participants
