@@ -46,4 +46,4 @@ def handle_data(name):
     with open(intermediatefilepath, "a") as out:
         out.write("{}: {}\n".format(person, ', '.join(choices))) #Write the response as a new line into an intermediate file, in the format "participant: name1, name2, name3"
     print("response recorded")
-    return "Thank you for your response!"
+    return "Thank you for your response! Please return to the SurveyMonkey tab"
