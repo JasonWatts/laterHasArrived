@@ -3,15 +3,15 @@ Software Development Project for Westmont's CS120 2018
 Web app that lets you take a simple survey then creates an adjacency matrix from the data collected.
 
 # TODO:
-1. [Create] The input names.csv file of participant names should have a header row,
-which should not be treated as an actual participant (Tanner)
+1.~~[Create] The input names.csv file of participant names should have a header row,~~
+~~which should not be treated as an actual participant (Tanner)~~
 1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants"~~
 1. ~~[Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table (In progress of merging)~~
 1. ~~[Respond] Remove (not just disable) responder's name from selection options~~
 1. ~~[Respond] Remove the assigned ID suffix in names lists~~
 1. [Respond] On survey-submit, resulting page should also prompt responder
 to return to survey monkey tab from which this started (Christian)
-1. [Respond] Display extra identifying name info only when duplicate names exist (Tanner and Jared)
+1. ~~[Respond] Display extra identifying name info only when duplicate names exist (Tanner and Jared)~~
 1. [Respond] Display extra identifying info for all names
 (possibly minus names that already incorporate such info) on hover (Save for later)
 1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya)
@@ -36,6 +36,7 @@ for each of the available URLs (Kyle)~~
 1. ~~Add flag for ignoring trailing slash in URL~~
 1. ~~Document all URLs to type in the URL bar (Kyle)~~
 1. ~~Clarify between both csv download buttons(include survey name in the downloaded file)~~
+1. Remove Unnamed:0 cell from adjancey matrix
 
 # Requirements
 Python 3.5 or later: https://www.python.org/downloads/
