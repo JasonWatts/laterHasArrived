@@ -37,7 +37,7 @@ for each of the available URLs (Kyle)~~
 1. ~~Document all URLs to type in the URL bar (Kyle)~~
 1. ~~Clarify between both csv download buttons(include survey name in the downloaded file)~~
 1. Remove Unnamed:0 cell from adjancey matrix
-1. Turn Admin page into the home page (get rid of page that is just a button) (Jason)
+1. ~~Turn Admin page into the home page (get rid of page that is just a button) (Jason)~~
 1. Hyperlink page formatting (M'Kya, Kaylie, Drew, Maya)
 1. Fix extra information for duplicate names (Tanner, Christian)
 
