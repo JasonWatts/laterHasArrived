@@ -6,7 +6,6 @@
 from flask import Flask
 import socket
 
-from home import home
 from create_survey import create_survey
 from take_survey import take_survey
 from results import results
@@ -18,7 +17,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
 app.url_map.strict_slashes = False
 
-app.register_blueprint(home)
 app.register_blueprint(create_survey)
 app.register_blueprint(take_survey)
 app.register_blueprint(results)

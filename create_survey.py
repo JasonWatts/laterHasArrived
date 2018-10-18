@@ -17,7 +17,7 @@ class CreateSurvey(Form):
     submit = SubmitField('Create Survey')
 
 create_survey = Blueprint('create_survey', __name__, template_folder='templates')
-@create_survey.route('/createSurvey', methods=['get', 'post'])
+@create_survey.route('/', methods=['get', 'post'])
 def createSurveyPage():
     if request.method == 'POST': #If the form is being submitted, then process the data.
         print("recieved post for createSurvey")
