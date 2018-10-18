@@ -90,17 +90,31 @@ Finally copy and paste the URL displayed in your terminal into a browser.
 
 
 # URLs
+
 <Host address>
+
 /
-  Homepage with a button directing to "/createSurvey".
+
+  * Homepage with a button directing to "/createSurvey".
+
 /createSurvey
-  Create a new survey with a title, a question, and a csv file.
+
+  * Create a new survey with a title, a question, and a csv file.
+  
 /survey/<name>
-  Take a survey by filling out the information on the page. Submit the survey response. <name> is the name of a survey as created in ".../createSurvey", where each space in the name is replaced by a single underscore. 
-  .../results
-    View the adjacency table results of a survey in an html table. Download a symmetric or a directional csv of the adjacency matrix for that survey.
+  
+  * Take a survey by filling out the information on the page. 
+  * Submit the survey response. 
+  * <name> is the name of a survey as created in ".../createSurvey", where each space in the name is replaced by a single underscore. 
+  
+  * .../results
+    * View the adjacency table results of a survey in an html table. Download a symmetric or a directional csv of the adjacency matrix for that survey.
+
 /downloadCSV/<name>
-  Download the symmetric csv file for survey <name>
+  
+  * Download the symmetric csv file for survey <name>
+
 /downloadCSV-directional/<name>
-  Download the directional csv file for survey <name>
+
+  * Download the directional csv file for survey <name>
 
