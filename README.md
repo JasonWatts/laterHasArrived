@@ -3,6 +3,7 @@ Software Development Project for Westmont's CS120 2018
 Web app that lets you take a simple survey then creates an adjacency matrix from the data collected.
 
 # TODO:
+1. Turn the admin page into the home page
 1.~~[Create] The input names.csv file of participant names should have a header row,~~
 ~~which should not be treated as an actual participant (Tanner)~~
 1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants"~~
