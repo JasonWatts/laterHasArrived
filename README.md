@@ -3,8 +3,7 @@ Software Development Project for Westmont's CS120 2018
 Web app that lets you take a simple survey then creates an adjacency matrix from the data collected.
 
 # TODO:
-1.~~[Create] The input names.csv file of participant names should have a header row,~~
-~~which should not be treated as an actual participant (Tanner)~~
+1.~~[Create] The input names.csv file of participant names should have a header row, which should not be treated as an actual participant (Tanner)~~
 1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants"~~
 1. ~~[Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table (In progress of merging)~~
 1. ~~[Respond] Remove (not just disable) responder's name from selection options~~
@@ -38,6 +37,7 @@ for each of the available URLs (Kyle)~~
 1. ~~Clarify between both csv download buttons(include survey name in the downloaded file)~~
 1. Remove Unnamed:0 cell from adjancey matrix
 1. Turn Admin page into the home page (get rid of page that is just a button)
+1. Hyperlink page formatting (M'Kya, Kaylie, Drew, Maya)
 
 # Requirements
 Python 3.5 or later: https://www.python.org/downloads/
