@@ -42,6 +42,16 @@ def read_names(filepath):
         print(person)
         participants[person.id_num] = person
 
+    all_names = set()
+    duplicate_names = set()
+    for key in participants:
+        if participants[key].get_name() in all_names:
+            duplicate_names.add(participants[key].get_name())
+        all_names.add(participants[key].get_name())
+    for key in participants:
+        if participants[key].get_name() in duplicate_names:
+            participants[key].set_duplicate()
+
     return participants
 
 
