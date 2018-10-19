@@ -4,7 +4,7 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 # TODO:
 
-1.~~[Create] The input names.csv file of participant names should have a header row, which should not be treated as an actual participant (Tanner)~~
+
 1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants"~~
 1. ~~[Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table (In progress of merging)~~
 1. ~~[Respond] Remove (not just disable) responder's name from selection options~~
@@ -27,6 +27,7 @@ but collectively uniquely identify an individual~~
 for each of the available URLs (Kyle)~~
 1. ~~Update REAMDE: go to "...../admin"~~
 1. ~~What should the question prompt be?~~
+1.~~[Create] The input names.csv file of participant names should have a header row, which should not be treated as an actual participant (Tanner)~~
 1. ~~Merge home page 
    * remove the "..../admin" from README~~
 1. ~~In README move csv req to top~~
