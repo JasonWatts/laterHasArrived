@@ -39,7 +39,8 @@ for each of the available URLs (Kyle)~~
 1. Remove Unnamed:0 cell from adjancey matrix
 1. ~~Turn Admin page into the home page (get rid of page that is just a button) (Jason)~~
 1. Hyperlink page formatting (M'Kya, Kaylie, Drew, Maya)
-1. Fix extra information for duplicate names (Tanner, Christian)
+1. ~~Fix extra information for duplicate names (Tanner, Jared)~~
+1. The HyperLink page is now displaying links that are incorrect, the links lack anything after the slash that follows the ip address
 
 # Requirements
 Python 3.5 or later: https://www.python.org/downloads/
