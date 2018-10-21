@@ -12,7 +12,6 @@ from survey_folders import *
 
 class CreateSurvey(Form):
     survey_create_name = TextField('Please enter the title of this survey:')
-    #number_of_questions = IntegerField('Enter the number of questions:')
     questions = TextAreaField('Please enter the questions you would like to answer, press enter to split the questions:')
     csv_upload = FileField('Upload CSV File')
     submit = SubmitField('Create Survey')
@@ -52,7 +51,7 @@ def createSurveyPage():
             print('survey created in '+ path_to_new_folder)
 
             send_out_survey_link = request.url + 'survey/{}/0'.format(folder_name)
-            see_results_link = request.url + '{}/results'.format(folder_name)
+            see_results_link = request.url + 'survey/{}/results'.format(folder_name)
 
             send_out_link = "Thanks! you can now send your survey out at <a href='(0)'>(0)</a>  and  you can see and download your results at <a href='(1)'>(1)</a>".replace('(0)', send_out_survey_link)
             print(send_out_link)

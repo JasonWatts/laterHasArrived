@@ -6,9 +6,8 @@
 <body>
     <h1> {{ title }} </h1>
     <h4> {{ question }} </h4>
-    <button type="button" onclick="window.location.href='{{ url_for( 'download_csv.download_csv_standard', survey_name=title ) }}';">Download CSV</button>
-    <button type="button" onclick="window.location.href='{{ url_for( 'download_csv.download_csv_directional', survey_name=title ) }}';">Download Directional CSV</button>
-
+    <a href="{{ downloadlinknormal }}"><button type="button">Download CSV</button></a>
+    <a href="{{ downloadlinkdirectional }}"><button type="button">Download Directional CSV</button></a>
     {{ table | safe }}
 
 </body>
