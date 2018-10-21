@@ -25,9 +25,12 @@ class SurveyForm(Form):
 take_survey = Blueprint('take_survey', __name__, template_folder='templates')
 
 # This is where the participant will enter in the survey
-@take_survey.route('/survey/<name>') #Should not just be "/<name>" because browsers make requests to "/favicon.ico"
-def my_view_func(name):
-    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
+@take_survey.route('/survey/<name>/<question_number>') #Should not just be "/<name>" because browsers make requests to "/favicon.ico"
+def my_view_func(name, question_number):
+    print(name)
+    print(question_number)
+    print(SURVEY_DIR)
+    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
     form = SurveyForm()
     redirectlink = request.url + '/handle_data'
     duplicates = False
@@ -46,8 +49,13 @@ def my_view_func(name):
     print("served form for /survey/"+name)
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
+
+
+
+
+
 # This page handles our data and writes it to the intermediate file path
-@take_survey.route('/survey/<name>/handle_data', methods=['POST'])
+@take_survey.route('/survey/<name>/<question_number>/handle_data', methods=['POST'])
 def handle_data(name):
     person = request.form['name'] #Get the participant's name.
     choices = request.form.getlist('choices') #Get the list of people the participant knows.
@@ -57,3 +65,26 @@ def handle_data(name):
         out.write("{}: {}\n".format(person, ', '.join(choices))) #Write the response as a new line into an intermediate file, in the format "participant: name1, name2, name3"
     print("response recorded")
     return "Thank you for your response! Please return to the SurveyMonkey tab"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ##########

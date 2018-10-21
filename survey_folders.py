@@ -66,16 +66,37 @@ def GetFormFromName(name, survey_folders):
     #print(questiontext)
     return questiontext, inputfilepath, participants, intermediatefilepath
 
-def createSurveyDirectory(path_to_new_folder, question_name):
+def createSurveyDirectory(path_to_new_folder, questions):
     os.mkdir(path_to_new_folder)
 
     #Make intermediatefile
-    new_intermediatefile_path = os.path.join(path_to_new_folder, OUT_FILE)
-    open(new_intermediatefile_path, 'a').close()
+    for question in questions:
+        question_index = question[0]
+        new_intermediatefile_path = os.path.join(path_to_new_folder, str(question_index) + OUT_FILE)
+        open(new_intermediatefile_path, 'a').close()
 
-    #Make file that just has the question
-    new_question_name_path = os.path.join(path_to_new_folder, QUESTION_FILE)
-    question_name_file = open(new_question_name_path,"w")
-    question_name_file.write(question_name)
-    question_name_file.close()
+        #Make file that just has the question
+        new_question_name_path = os.path.join(path_to_new_folder, str(question_index) + QUESTION_FILE)
+        question_name_file = open(new_question_name_path,"w")
+        question_name_file.write(question[1])
+        question_name_file.close()
     print('directory and text files created')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ##
