@@ -21,12 +21,8 @@ def results_page(name):
     return render_template("results_main.html", list=fileList)
 
 
-<<<<<<< HEAD
-@results.route('/survey/<name>/results/<question_number>')
-=======
 
-@results.route('/survey/<name>/<question_number>/results')
->>>>>>> 5bf30293e5126c5bccacade7b1d6fac7157ae1b3
+@results.route('/survey/<name>/results/<question_number>')
 def render_results(name, question_number):
     questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
 
