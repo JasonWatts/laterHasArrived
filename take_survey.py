@@ -50,9 +50,12 @@ def my_view_func(name, question_number):
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
 
-def getNumberOfQuestions(inputfilepath):
-    files = os.listdir(inputfilepath.replace('\\names.csv', ''))
+def getNumberOfQuestions(survey_name, SURVEY_DIR):
+    files = os.listdir(os.path.join(SURVEY_DIR, survey_name))
+    print("survey-dir:  " + SURVEY_DIR)
+    print("files:  " + str(files))
     nums = [int(e.split('response')[0]) for e in files if 'response' in e]
+    print("nums : " + str(nums))
     number_of_questions = max(nums)
     return number_of_questions
 
@@ -74,7 +77,7 @@ def handle_data(name, question_number):
 
     ## read number of questions
     print(request.url)
-    number_of_questions = getNumberOfQuestions(inputfilepath)
+    number_of_questions = getNumberOfQuestions(name, SURVEY_DIR)
     print(number_of_questions)
 
     ## Go to next question when done
