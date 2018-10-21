@@ -56,14 +56,22 @@ def my_view_func(name, question_number):
 
 # This page handles our data and writes it to the intermediate file path
 @take_survey.route('/survey/<name>/<question_number>/handle_data', methods=['POST'])
-def handle_data(name):
+def handle_data(name, question_number):
+    print(name)
+    print(question_number)
     person = request.form['name'] #Get the participant's name.
     choices = request.form.getlist('choices') #Get the list of people the participant knows.
     print("recieved a response for /survey/"+name+" from "+person)
-    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
+    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
     with open(intermediatefilepath, "a") as out:
         out.write("{}: {}\n".format(person, ', '.join(choices))) #Write the response as a new line into an intermediate file, in the format "participant: name1, name2, name3"
     print("response recorded")
+
+    ## read number of questions
+    files = os.listdir(inputfilepath)
+
+    while question_num
+
     return "Thank you for your response! Please return to the SurveyMonkey tab"
 
 

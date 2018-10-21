@@ -50,18 +50,19 @@ def GetQuestionNameFromTextFile(filepath):
     question = file.read()
     return question
 
-def GetFormFromName(name, survey_folders):
+def GetFormFromName(name, survey_folders, question_number):
     #print(name)
     folder_path = os.path.join(survey_folders, name)
     #print(folder_path)
-    questionnamepath = os.path.join(folder_path, QUESTION_FILE)
+    questionnamepath = os.path.join(folder_path, str(question_number) + QUESTION_FILE)
     #print(questionnamepath)
     inputfilepath = os.path.join(folder_path, NAME_FILE)
     #print(inputfilepath)
-    intermediatefilepath = os.path.join(folder_path, OUT_FILE)
+    intermediatefilepath = os.path.join(folder_path, str(question_number) + OUT_FILE)
     #print(intermediatefilepath)
     participants = read_names(inputfilepath)
     #print(nameslist)
+    print(questionnamepath)
     questiontext = GetQuestionNameFromTextFile(questionnamepath)
     #print(questiontext)
     return questiontext, inputfilepath, participants, intermediatefilepath
