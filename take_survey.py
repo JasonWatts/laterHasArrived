@@ -4,7 +4,7 @@
 # Writes a respondents results to a single line of a "response.txt" dump file.
 #
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from flask_wtf import Form
 from wtforms import widgets, SelectField, SelectMultipleField, SubmitField, TextField
 from wtforms.validators import InputRequired
@@ -50,6 +50,11 @@ def my_view_func(name, question_number):
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
 
+def getNumberOfQuestions(inputfilepath):
+    files = os.listdir(inputfilepath.replace('\\names.csv', ''))
+    nums = [int(e.split('response')[0]) for e in files if 'response' in e]
+    number_of_questions = max(nums)
+    return number_of_questions
 
 
 
@@ -68,10 +73,16 @@ def handle_data(name, question_number):
     print("response recorded")
 
     ## read number of questions
-    files = os.listdir(inputfilepath)
+    print(request.url)
+    number_of_questions = getNumberOfQuestions(inputfilepath)
+    print(number_of_questions)
 
-    while question_num
+    ## Go to next question when done
+    next_q = int(question_number) + 1
+    redirectlink = request.url.replace('{}/handle_data'.format(question_number), str(next_q))
 
+    if int(question_number) < number_of_questions:
+        return redirect(redirectlink)
     return "Thank you for your response! Please return to the SurveyMonkey tab"
 
 

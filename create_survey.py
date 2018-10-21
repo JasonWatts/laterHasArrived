@@ -55,8 +55,8 @@ def createSurveyPage():
         if names_file:
             names_file.save(os.path.join(path_to_new_folder, NAME_FILE))
             print('survey created in '+ path_to_new_folder)
-            newstring = request.url.replace('/createSurvey', '/survey/{}'.format(folder_name))
-            return "Thanks! you can now send your survey out at <a href='{0}'>{0}</a>  and  you can see and download your results at <a href='{0}/results'>{0}/results</a>".format(newstring)
+            newstring = request.url + '/survey/{}'.format(folder_name)
+            return "Thanks! you can now send your survey out at <a href='{0}'/survey/0>{0}'/survey/0</a>  and  you can see and download your results at <a href='{0}/results'>{0}/results</a>".format(newstring)
         return "Unable to upload names file."
 
     form = CreateSurvey() #If the form is not being submitted, then create a new form and serve it to the user.
