@@ -10,15 +10,25 @@ from person_class import Person
 from survey_folders import *
 from parseToCSV import *
 from survey_folders import *
+from take_survey import getNumberOfQuestions
 
 results = Blueprint('results', __name__, template_folder='templates')
+
+
+
 
 @results.route('/survey/<name>/results')
 def results_page(name):
     SurveyFilePath = os.path.join(SURVEY_DIR, name)
     fileList = os.listdir(SurveyFilePath)
     print(fileList)
-    return render_template("results_main.html", list=fileList)
+    number_of_questions = getNumberOfQuestions(name, SURVEY_DIR)
+
+    question_numbers = [e for e in range(0, number_of_questions)]
+    question_links = [request.url + str(e) for e in question_numbers]
+
+
+    return render_template("results_main.html", elems=question_links)
 
 
 

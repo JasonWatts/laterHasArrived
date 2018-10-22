@@ -6,9 +6,18 @@
 </head>
 <body>
 
+<ul>
+  {% for elem in elems %}
+  <li><a href="{{elem}}"><b>{{elem}}</b> </a></li>
+  <br>
+  <br>
+  {% endfor %}
+</ul>
 
 
 
+
+<!--
 <button onclick="myFunction({{ list }})">View Question Results</button>
 <div id="qresults"></div>
 
@@ -25,10 +34,9 @@ function myFunction(list) {
     document.getElementById("qresults").innerHTML = x;
 }
 </script>
-
+-->
 
 
 
 </body>
 </html>
-
