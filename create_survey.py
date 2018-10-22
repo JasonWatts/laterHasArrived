@@ -17,7 +17,8 @@ class CreateSurvey(Form):
     submit = SubmitField('Create Survey')
 
 def processQuestions(questions):
-    list_of_questions = questions.split()
+    list_of_questions = questions.split('\n')
+    list_of_questions = [e for e in list_of_questions if e != '']
     return list_of_questions, len(list_of_questions)
 
 
