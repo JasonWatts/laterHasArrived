@@ -4,7 +4,7 @@
 # Writes a respondents results to a single line of a "response.txt" dump file.
 #
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from flask_wtf import Form
 from wtforms import widgets, SelectField, SelectMultipleField, SubmitField, TextField
 from wtforms.validators import InputRequired
@@ -25,9 +25,12 @@ class SurveyForm(Form):
 take_survey = Blueprint('take_survey', __name__, template_folder='templates')
 
 # This is where the participant will enter in the survey
-@take_survey.route('/survey/<name>') #Should not just be "/<name>" because browsers make requests to "/favicon.ico"
-def my_view_func(name):
-    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
+@take_survey.route('/survey/<name>/<question_number>') #Should not just be "/<name>" because browsers make requests to "/favicon.ico"
+def my_view_func(name, question_number):
+    print(name)
+    print(question_number)
+    print(SURVEY_DIR)
+    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
     form = SurveyForm()
     redirectlink = request.url + '/handle_data'
     duplicates = False
@@ -46,14 +49,64 @@ def my_view_func(name):
     print("served form for /survey/"+name)
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
+
+def getNumberOfQuestions(survey_name, SURVEY_DIR):
+    files = os.listdir(os.path.join(SURVEY_DIR, survey_name))
+    print("survey-dir:  " + SURVEY_DIR)
+    print("files:  " + str(files))
+    nums = [int(e.split('response')[0]) for e in files if 'response' in e]
+    print("nums : " + str(nums))
+    number_of_questions = max(nums)
+    return number_of_questions
+
+
+
+
 # This page handles our data and writes it to the intermediate file path
-@take_survey.route('/survey/<name>/handle_data', methods=['POST'])
-def handle_data(name):
+@take_survey.route('/survey/<name>/<question_number>/handle_data', methods=['POST'])
+def handle_data(name, question_number):
+    print(name)
+    print(question_number)
     person = request.form['name'] #Get the participant's name.
     choices = request.form.getlist('choices') #Get the list of people the participant knows.
     print("recieved a response for /survey/"+name+" from "+person)
-    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR)
+    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
     with open(intermediatefilepath, "a") as out:
         out.write("{}: {}\n".format(person, ', '.join(choices))) #Write the response as a new line into an intermediate file, in the format "participant: name1, name2, name3"
     print("response recorded")
+
+    ## read number of questions
+    print(request.url)
+    number_of_questions = getNumberOfQuestions(name, SURVEY_DIR)
+    print(number_of_questions)
+
+    ## Go to next question when done
+    next_q = int(question_number) + 1
+    redirectlink = request.url.replace('{}/handle_data'.format(question_number), str(next_q))
+
+    if int(question_number) < number_of_questions:
+        return redirect(redirectlink)
     return "Thank you for your response! Please return to the SurveyMonkey tab"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ##########

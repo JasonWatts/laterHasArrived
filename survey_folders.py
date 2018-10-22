@@ -50,32 +50,54 @@ def GetQuestionNameFromTextFile(filepath):
     question = file.read()
     return question
 
-def GetFormFromName(name, survey_folders):
+def GetFormFromName(name, survey_folders, question_number):
     #print(name)
     folder_path = os.path.join(survey_folders, name)
     #print(folder_path)
-    questionnamepath = os.path.join(folder_path, QUESTION_FILE)
+    questionnamepath = os.path.join(folder_path, str(question_number) + QUESTION_FILE)
     #print(questionnamepath)
     inputfilepath = os.path.join(folder_path, NAME_FILE)
     #print(inputfilepath)
-    intermediatefilepath = os.path.join(folder_path, OUT_FILE)
+    intermediatefilepath = os.path.join(folder_path, str(question_number) + OUT_FILE)
     #print(intermediatefilepath)
     participants = read_names(inputfilepath)
     #print(nameslist)
+    print(questionnamepath)
     questiontext = GetQuestionNameFromTextFile(questionnamepath)
     #print(questiontext)
     return questiontext, inputfilepath, participants, intermediatefilepath
 
-def createSurveyDirectory(path_to_new_folder, question_name):
+def createSurveyDirectory(path_to_new_folder, questions):
     os.mkdir(path_to_new_folder)
 
     #Make intermediatefile
-    new_intermediatefile_path = os.path.join(path_to_new_folder, OUT_FILE)
-    open(new_intermediatefile_path, 'a').close()
+    for question in questions:
+        question_index = question[0]
+        new_intermediatefile_path = os.path.join(path_to_new_folder, str(question_index) + OUT_FILE)
+        open(new_intermediatefile_path, 'a').close()
 
-    #Make file that just has the question
-    new_question_name_path = os.path.join(path_to_new_folder, QUESTION_FILE)
-    question_name_file = open(new_question_name_path,"w")
-    question_name_file.write(question_name)
-    question_name_file.close()
+        #Make file that just has the question
+        new_question_name_path = os.path.join(path_to_new_folder, str(question_index) + QUESTION_FILE)
+        question_name_file = open(new_question_name_path,"w")
+        question_name_file.write(question[1])
+        question_name_file.close()
     print('directory and text files created')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ##
