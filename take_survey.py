@@ -33,19 +33,9 @@ def my_view_func(name, question_number):
     questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
     form = SurveyForm()
     redirectlink = request.url + '/handle_data'
-    duplicates = False
-    check_for_duplicates = set()
-    for key in participants:
-        if(participants[key].get_name() in check_for_duplicates):
-            duplicates = True
-        else:
-            check_for_duplicates.add(participants[key].get_name())
-    if(duplicates):
-        display_list = [(key, participants[key].get_name_and_uid()) for key in participants] #Populate the name dropdown and checkbox options with the available names.
-    else:
-        display_list = [(key, participants[key].get_name()) for key in participants] #Populate the name dropdown and checkbox options with the available names.
+    display_list = [(key, participants[key].get_name()) for key in participants]  # Populate the name dropdown and checkbox options with the available names.
     form.choices.choices = display_list
-    form.name.choices =  display_list
+    form.name.choices = display_list
     print("served form for /survey/"+name)
     return render_template(SURVEY_TEMPLATE, questiontext=questiontext, form=form, redirectlink = redirectlink, name = name)
 
