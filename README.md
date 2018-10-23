@@ -16,6 +16,13 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 1. Fix “unnamed cell” in upper left hand corner of results table on the results page
 
+1. [Respond] Display extra identifying info for all names
+(possibly minus names that already incorporate such info) on hover (Save for later)
+1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya)
+1. [Create] Allow second and subsequent questions within single survey;
+currently second/subsequent questions in an existing survey generate errors (Walker and Heather, will be done by Monday)
+
+
 1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants"~~
 1. ~~[Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table (In progress of merging)~~
 1. ~~[Respond] Remove (not just disable) responder's name from selection options~~
@@ -23,11 +30,6 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 1. ~~[Respond] On survey-submit, resulting page should also prompt responder
 to return to survey monkey tab from which this started (Christian)~~
 1. ~~[Respond] Display extra identifying name info only when duplicate names exist (Tanner and Jared)~~
-1. [Respond] Display extra identifying info for all names
-(possibly minus names that already incorporate such info) on hover (Save for later)
-1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya)
-1. [Create] Allow second and subsequent questions within single survey;
-currently second/subsequent questions in an existing survey generate errors (Walker and Heather, will be done by Monday)
 1. ~~[General] Maintain README.md, keeping it aligned with project progress~~
 1. ~~[README] Consolidate "Server" and "Getting started" into a "Running" section~~
 1. ~~[README] Expand "Requirements" with Python 3.5, Internet connection accessible to responders, etc.~~
@@ -52,7 +54,6 @@ for each of the available URLs (Kyle)~~
 1. ~~Turn Admin page into the home page (get rid of page that is just a button) (Jason)~~
 1. Hyperlink page formatting (M'Kya, Kaylie, Drew, Maya)
 1. ~~Fix extra information for duplicate names (Tanner, Jared)~~
-1. The HyperLink page is now displaying links that are incorrect, the links lack anything after the slash that follows the ip address
 
 
 
