@@ -24,13 +24,16 @@ def results_page(name):
     print(fileList)
     number_of_questions = getNumberOfQuestions(name, SURVEY_DIR)
 
-    question_numbers = [e for e in range(0, number_of_questions)]
+    question_numbers = [e for e in range(0, number_of_questions+1)]
     if request.url[-1] != "/":
         url = request.url + "/"
     else:
         url = request.url
 
     question_links = [url + str(e) for e in question_numbers]
+
+    print(question_links)
+
     return render_template("results_main.html", elems=question_links)
 
 
