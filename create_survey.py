@@ -56,9 +56,12 @@ def createSurveyPage():
 
             send_out_link = "Thanks! you can now send your survey out at <a href='(0)'>(0)</a>  and  you can see and download your results at <a href='(1)'>(1)</a>".replace('(0)', send_out_survey_link)
             print(send_out_link)
+
+
             send_out_link = send_out_link.replace('(1)', see_results_link)
 
-            return send_out_link
+            return render_template(ADMIN2_TEMPLATE, link_to_go_to=send_out_survey_link,
+            see_results_link=see_results_link )
         return "Unable to upload names file."
 
     form = CreateSurvey() #If the form is not being submitted, then create a new form and serve it to the user.

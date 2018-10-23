@@ -10,11 +10,32 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style media="screen">
+body {
+  background-color: yellow;
+}
+
+#mainheader {
+  color: pink;
+  border: 2px solid purple;
+}
+
+
+  </style>
+
+
+
 </head>
 <body>
 <center>
-<h2>Thanks! You can now copy and paste the following link to distribute your survey</h2>
+<h2 id="mainheader" >Thanks! You can now copy and paste the following link to distribute your survey</h2>
+<p>{{ link_to_go_to }}</p>
+
 <br/>
-<a href="http://10.124.2.152:3134//results" role="button"><font size = "5">Your Completed Survey</font></a>
+
+<a href="{{ see_results_link }}" role="button">
+<button type="button" name="button"><font size = "5">Your Completed Survey</font></button></a>
+ <!-- Results lInk -->
 </body>
 </html>
