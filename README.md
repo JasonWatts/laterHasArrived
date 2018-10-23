@@ -4,6 +4,17 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 # TODO:
 
+1. Create a pick a name page before a user takes the survey with a next button which brings you to the actual questions of the survey
+
+1. Re-format Hyperlinks after survey creation to be in multiple paragraphs instead of one long line
+
+1. Filter duplicate name from possible selections given the answer “the who you are question”, one could do this by populating the drop down menu with “a non-name value” (ie --choose name---). Currently the default name still appears in the possible selection if the selection is never changed.
+
+1. Lost results for secondary questions (file not found error when admin tries to view results)
+
+1. Commit format branch to master
+
+1. Fix “unnamed cell” in upper left hand corner of results table on the results page
 
 1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants"~~
 1. ~~[Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table (In progress of merging)~~
@@ -42,6 +53,9 @@ for each of the available URLs (Kyle)~~
 1. Hyperlink page formatting (M'Kya, Kaylie, Drew, Maya)
 1. ~~Fix extra information for duplicate names (Tanner, Jared)~~
 1. The HyperLink page is now displaying links that are incorrect, the links lack anything after the slash that follows the ip address
+
+
+
 
 # Requirements
 Python 3.5 or later: https://www.python.org/downloads/
