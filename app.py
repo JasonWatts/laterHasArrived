@@ -7,7 +7,7 @@ from flask import Flask
 import socket
 
 from create_survey import create_survey
-from take_survey import take_survey
+from take_survey import take_survey, pick_name
 from results import results
 from download_csv import download_csv
 

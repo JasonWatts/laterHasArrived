@@ -25,8 +25,8 @@ class SurveyForm(Form):
 take_survey = Blueprint('take_survey', __name__, template_folder='templates')
 
 # This is where the participant will enter in the survey
-@take_survey.route('/survey/<name>/<question_number>') #Should not just be "/<name>" because browsers make requests to "/favicon.ico"
-def my_view_func(name, question_number):
+@take_survey.route('/survey/<name>/<person_id>/<question_number>') #Should not just be "/<name>" because browsers make requests to "/favicon.ico"
+def my_view_func(name, question_number, person_id):
     print(name)
     print(question_number)
     print(SURVEY_DIR)
@@ -53,11 +53,11 @@ def getNumberOfQuestions(survey_name, SURVEY_DIR):
 
 
 # This page handles our data and writes it to the intermediate file path
-@take_survey.route('/survey/<name>/<question_number>/handle_data', methods=['POST'])
-def handle_data(name, question_number):
+@take_survey.route('/survey/<name>/<person_id>/<question_number>/handle_data', methods=['POST'])
+def handle_data(name, person_id, question_number):
     print(name)
     print(question_number)
-    person = request.form['name'] #Get the participant's name.
+    person = person_id
     choices = request.form.getlist('choices') #Get the list of people the participant knows.
     print("recieved a response for /survey/"+name+" from "+person)
     questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
@@ -80,9 +80,26 @@ def handle_data(name, question_number):
 
 
 
-
-
-
+@take_survey.route('/survey/<name>/', methods=['POST', 'GET'])
+def pick_name(name):
+    form = SurveyForm()
+    questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, 0)
+    display_list = [(key, participants[key].get_name()) for key in participants]  # Populate the name dropdown and checkbox options with the available names.
+    form.choices.choices = display_list
+    form.name.choices = display_list
+    if request.method == 'POST':
+        person = request.form['name']
+        choices = request.form.getlist('choices')
+        print("recieved a response for /survey/"+name+" from "+person)
+        print(person)
+        if request.url[-1] != "/":
+            url = request.url + "/"
+        else:
+            url = request.url
+        redirectlink = url + str(person) + '/0'
+        return redirect(redirectlink)
+    else:
+        return render_template(PICK_NAME_TEMPLATE, form=form, name = name)
 
 
 

@@ -16,17 +16,16 @@
 
 <body>
 
+<h3>Please Select Your Name</h3>
+
 <div class="maindiv">
-  <form action="{{ redirectlink }}" method="post" novalidate>
-    {{ form.hidden_tag() }}
-    <p>
-      <b>{{ questiontext }}</b><br>
-      {{ form.search(onkeyup="filter()", placeholder="Search...") }}<br>
-      <div style="width: 600px; height: 200px; overflow-y: scroll;">
-      {{ form.choices() }}
-      </div>
-    </p>
-    <p>{{ form.submit() }}</p>
+  <form method="post" novalidate>
+    {{ form.name.label }}
+    <br>
+    {{ form.name(size=1, onchange="filter()") }}
+    <br>
+    {{ form.submit() }}
+
   </form>
 
 

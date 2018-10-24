@@ -16,6 +16,7 @@ CSV_NAME = "adjacency.csv"
 ADMIN_TEMPLATE = "adminpage.html"
 CSV_DIRECTIONAL = "adjacency_directional.csv"
 ADMIN2_TEMPLATE = "admin_two.html"
+PICK_NAME_TEMPLATE = "Select_name.html"
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 SURVEY_DIR = os.path.join(dir_path, "surveys") #I don't know why something that isn't a constant is being defined like it is a constant, but I'm not going to touch this while I'm splitting up files.
