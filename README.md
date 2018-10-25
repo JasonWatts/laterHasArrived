@@ -26,7 +26,6 @@ currently second/subsequent questions in an existing survey generate errors (Wal
 1. ~~Fix “unnamed cell” in upper left hand corner of results table on the results page~~
 
 
-
 1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants"~~
 1. ~~[Results] Verify resolution of NaN problem associated with duplicate rows/columns in AM table (In progress of merging)~~
 1. ~~[Respond] Remove (not just disable) responder's name from selection options~~
