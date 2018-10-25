@@ -21,10 +21,15 @@ def processQuestions(questions):
     list_of_questions = [e for e in list_of_questions if e != '']
     return list_of_questions, len(list_of_questions)
 
+create_home = Blueprint('home', __name__, template_folder='templates')
+@create_home.route('/')
+def homepage():
+    return render_template(HOMEPAGE_TEMPLATE)
+
 
 
 create_survey = Blueprint('create_survey', __name__, template_folder='templates')
-@create_survey.route('/', methods=['get', 'post'])
+@create_survey.route('/createSurvey', methods=['get', 'post'])
 def createSurveyPage():
     if request.method == 'POST': #If the form is being submitted, then process the data.
         print("recieved post for createSurvey")

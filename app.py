@@ -6,7 +6,7 @@
 from flask import Flask
 import socket
 
-from create_survey import create_survey
+from create_survey import create_survey, create_home
 from take_survey import take_survey, pick_name
 from results import results
 from download_csv import download_csv
@@ -17,6 +17,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'testing_key'
 app.url_map.strict_slashes = False
 
+app.register_blueprint(create_home)
 app.register_blueprint(create_survey)
 app.register_blueprint(take_survey)
 app.register_blueprint(results)
