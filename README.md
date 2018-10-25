@@ -10,6 +10,8 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 1. Update home page 
 
+1. Check view for many names in adjancency matrix 
+
 1. ~~[Create] Allow second and subsequent questions within single survey;
 currently second/subsequent questions in an existing survey generate errors (Walker and Heather, will be done by Monday)~~
 
