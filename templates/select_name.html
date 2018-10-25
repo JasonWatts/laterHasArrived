@@ -14,7 +14,7 @@
 }
 </style>
 
-<body>
+<body onLoad="placeholder()">
 
 <h3>Please Select Your Name</h3>
 
@@ -22,12 +22,31 @@
   <form method="post" novalidate>
     {{ form.name.label }}
     <br>
-    {{ form.name(size=1) }}
+    {{ form.name(size=1, onchange="enable()") }}
     <br>
     {{ form.submit() }}
 
   </form>
 </div>
+
+<script>
+function placeholder() {
+  var submit = document.getElementById("submitbutton");
+  submit.disabled = true;
+  var select = document.getElementById("name_select");
+  var option = document.createElement("option");
+  option.text = "select name";
+  option.disabled = true;
+  option.selected = true;
+  option.hidden = true;
+  select.add(option, select[0]);
+}
+
+function enable() {
+  var submit = document.getElementById("submitbutton");
+  submit.disabled = false;
+}
+</script>
 
 </body>
 </html>
