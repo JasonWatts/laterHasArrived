@@ -33,7 +33,10 @@ def my_view_func(name, question_number, person_id):
     questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
     form = SurveyForm()
     redirectlink = request.url + '/handle_data'
-    display_list = [(key, participants[key].get_name()) for key in participants]  # Populate the name dropdown and checkbox options with the available names.
+    display_list = []
+    for key in participants:
+        if int(key) != int(person_id):
+            display_list.append((key, participants[key].get_name()))  # Populate the name dropdown and checkbox options with the available names.
     form.choices.choices = display_list
     form.name.choices = display_list
     print("served form for /survey/"+name)
