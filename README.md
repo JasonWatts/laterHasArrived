@@ -4,9 +4,11 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 # TODO:
 
-1. Filter duplicate name from possible selections given the answer “the who you are question”, one could do this by populating the drop down menu with “a non-name value” (ie --choose name---). Currently the default name still appears in the possible selection if the selection is never changed. (done with JavaScript, doing with python)
+1. Filter duplicate name from possible selections given the answer “the who you are question”, one could do this by populating the drop down menu with “a non-name value” (ie --choose name---). Currently the default name still appears in the possible selection if the selection is never changed. (done with JavaScript, doing with python) 
 
 1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya) --> center branch
+
+1. Update home page 
 
 1. ~~[Create] Allow second and subsequent questions within single survey;
 currently second/subsequent questions in an existing survey generate errors (Walker and Heather, will be done by Monday)~~
