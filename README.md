@@ -4,23 +4,27 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 # TODO:
 
-1. Create a pick a name page before a user takes the survey with a next button which brings you to the actual questions of the survey
+1. Filter duplicate name from possible selections given the answer “the who you are question”, one could do this by populating the drop down menu with “a non-name value” (ie --choose name---). Currently the default name still appears in the possible selection if the selection is never changed. (done with JavaScript, doing with python)
+
+1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya) --> center branch
+
+1. ~~[Create] Allow second and subsequent questions within single survey;
+currently second/subsequent questions in an existing survey generate errors (Walker and Heather, will be done by Monday)~~
+
+
+1. ~~[Respond] Display extra identifying info for all names
+(possibly minus names that already incorporate such info) on hover (Save for later)~~
+
+1. ~~Create a pick a name page before a user takes the survey with a next button which brings you to the actual questions of the survey~~
 
 1. ~~Re-format Hyperlinks after survey creation to be in multiple paragraphs instead of one long line ~~
 
-1. Filter duplicate name from possible selections given the answer “the who you are question”, one could do this by populating the drop down menu with “a non-name value” (ie --choose name---). Currently the default name still appears in the possible selection if the selection is never changed.
-
 1. ~~Lost results for secondary questions (file not found error when admin tries to view results)~~
 
-1. ~~Commit format branch to master
+1. ~~Commit format branch to master~~
 
-1. Fix “unnamed cell” in upper left hand corner of results table on the results page
+1. ~~Fix “unnamed cell” in upper left hand corner of results table on the results page~~
 
-1. [Respond] Display extra identifying info for all names
-(possibly minus names that already incorporate such info) on hover (Save for later)
-1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya)
-1. [Create] Allow second and subsequent questions within single survey;
-currently second/subsequent questions in an existing survey generate errors (Walker and Heather, will be done by Monday)
 
 
 1. ~~[Create] The prompt of the names.csv file should mention "file containing names of participants"~~
@@ -41,8 +45,8 @@ for each of the available URLs (Kyle)~~
 1. ~~Update REAMDE: go to "...../admin"~~
 1. ~~What should the question prompt be?~~
 1. ~~[Create] The input names.csv file of participant names should have a header row, which should not be treated as an actual participant (Tanner)~~
-1. ~~Merge home page 
-   * remove the "..../admin" from README~~
+1. ~~Merge home page ~~
+   ~~* remove the "..../admin" from README~~
 1. ~~In README move csv req to top~~
 1. ~~Add extra info for CSV upload button~~
 1. ~~Clarify successful test addition response~~
@@ -50,9 +54,8 @@ for each of the available URLs (Kyle)~~
 1. ~~Add flag for ignoring trailing slash in URL~~
 1. ~~Document all URLs to type in the URL bar (Kyle)~~
 1. ~~Clarify between both csv download buttons(include survey name in the downloaded file)~~
-1. Remove Unnamed:0 cell from adjancey matrix
 1. ~~Turn Admin page into the home page (get rid of page that is just a button) (Jason)~~
-1. Hyperlink page formatting (M'Kya, Kaylie, Drew, Maya)
+1. ~~Hyperlink page formatting (M'Kya, Kaylie, Drew, Maya)~~
 1. ~~Fix extra information for duplicate names (Tanner, Jared)~~
 
 
