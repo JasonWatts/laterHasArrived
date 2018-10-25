@@ -24,7 +24,8 @@ def processQuestions(questions):
 create_home = Blueprint('home', __name__, template_folder='templates')
 @create_home.route('/')
 def homepage():
-    return render_template(HOMEPAGE_TEMPLATE)
+    surveyNamesList = os.listdir(SURVEY_DIR)
+    return render_template(HOMEPAGE_TEMPLATE, list=surveyNamesList)
 
 
 
