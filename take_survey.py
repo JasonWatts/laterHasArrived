@@ -20,7 +20,7 @@ class SurveyForm(Form):
     name = SelectField('Please select who you are. Type your name after clicking the drop down box!', validators = [InputRequired()], id='name_select') #Dropdown menu for participant's name.
     search = TextField('Enter Name', id='searchbar') #Searchbar to filter the checkbox field.
     choices = MultiCheckboxField("", validators = [InputRequired()], id='selector') #Checkbox field of names.
-    submit = SubmitField('submit') #Submit button on the form.
+    submit = SubmitField('submit', id='submitbutton') #Submit button on the form.
 
 take_survey = Blueprint('take_survey', __name__, template_folder='templates')
 

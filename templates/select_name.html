@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+ </head>
+
+<style media="screen">
+.maindiv{
+  padding: 20px;
+  margin-left: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+
+}
+</style>
+
+<body onLoad="placeholder()">
+
+<h3>Please Select Your Name</h3>
+
+<div class="maindiv">
+  <form method="post" novalidate>
+    {{ form.name.label }}
+    <br>
+    {{ form.name(size=1, onchange="enable()") }}
+    <br>
+    {{ form.submit() }}
+
+  </form>
+</div>
+
+<script>
+function placeholder() {
+  var submit = document.getElementById("submitbutton");
+  submit.disabled = true;
+  var select = document.getElementById("name_select");
+  var option = document.createElement("option");
+  option.text = "select name";
+  option.disabled = true;
+  option.selected = true;
+  option.hidden = true;
+  select.add(option, select[0]);
+}
+
+function enable() {
+  var submit = document.getElementById("submitbutton");
+  submit.disabled = false;
+}
+</script>
+
+</body>
+</html>
