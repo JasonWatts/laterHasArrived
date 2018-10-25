@@ -68,9 +68,13 @@ def initializeMatrix(participants):
     
 
     #Sanitize data of \n and spaces (currently spaces removal is commented out)
+
+
    
     #crete empty pandas dataframe
     df = pd.DataFrame(0, index=csv_matrix_names, columns=csv_matrix_names)
+
+
     return df
     
 def fillDF(participants, df, intermediateNames, directional=False):
@@ -107,6 +111,7 @@ def fillDF(participants, df, intermediateNames, directional=False):
             df.at[participants[int(keyName)].get_name(), participants[int(valueName)].get_name()] = 1
             if not directional:
                 df.at[participants[int(valueName)].get_name(), participants[int(keyName)].get_name()] = 1
+
 
     return df
 
