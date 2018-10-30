@@ -21,7 +21,6 @@ results = Blueprint('results', __name__, template_folder='templates')
 def results_page(name):
     SurveyFilePath = os.path.join(SURVEY_DIR, name)
     fileList = os.listdir(SurveyFilePath)
-    print(fileList)
     number_of_questions = getNumberOfQuestions(name, SURVEY_DIR)
 
     question_numbers = [e for e in range(0, number_of_questions+1)]
@@ -31,8 +30,6 @@ def results_page(name):
         url = request.url
 
     question_links = [url + str(e) for e in question_numbers]
-
-    print(question_links)
 
     return render_template("results_main.html", elems=question_links)
 
@@ -45,12 +42,8 @@ def render_results(name, question_number):
 
     survey = os.path.join(SURVEY_DIR, name)
     csv_path = os.path.join(survey, str(question_number) + CSV_NAME)
-    print('csvpath:')
-    print(csv_path)
     input_path = os.path.join(survey, str(question_number) + NAME_FILE)
     out_path = os.path.join(survey, str(question_number) + OUT_FILE)
-    print('outpath')
-    print(out_path)
     generateMatrix.run_all(participants, out_path, csv_path) #Create a bunch of file paths and then pass them to a function to generate the adjacency matrix CSV files.
     title=name
 
@@ -63,7 +56,6 @@ def render_results(name, question_number):
 
 
     downloadlinknormal = request.url.split('/survey')[0]
-    print(downloadlinknormal)
     downloadlinkdirectional = downloadlinknormal + "/downloadCSV-directional/{}/{}".format(name, question_number)
 
     downloadlinknormal = downloadlinknormal + '/downloadCSV/{}/{}'.format(name, question_number)

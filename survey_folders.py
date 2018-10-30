@@ -41,7 +41,6 @@ def read_names(filepath):
             person = Person(i, name_info[0], name_info[1], name_info[2])
         else:
             person = Person(i, name_info[0], name_info[1])
-        print(person)
         participants[person.id_num] = person
 
     all_names = set()
@@ -63,20 +62,12 @@ def GetQuestionNameFromTextFile(filepath):
     return question
 
 def GetFormFromName(name, survey_folders, question_number):
-    #print(name)
     folder_path = os.path.join(survey_folders, name)
-    #print(folder_path)
     questionnamepath = os.path.join(folder_path, str(question_number) + QUESTION_FILE)
-    #print(questionnamepath)
     inputfilepath = os.path.join(folder_path, NAME_FILE)
-    #print(inputfilepath)
     intermediatefilepath = os.path.join(folder_path, str(question_number) + OUT_FILE)
-    #print(intermediatefilepath)
     participants = read_names(inputfilepath)
-    #print(nameslist)
-    print(questionnamepath)
     questiontext = GetQuestionNameFromTextFile(questionnamepath)
-    #print(questiontext)
     return questiontext, inputfilepath, participants, intermediatefilepath
 
 def createSurveyDirectory(path_to_new_folder, questions):
@@ -93,7 +84,6 @@ def createSurveyDirectory(path_to_new_folder, questions):
         question_name_file = open(new_question_name_path,"w")
         question_name_file.write(question[1])
         question_name_file.close()
-    print('directory and text files created')
 
 
 
