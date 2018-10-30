@@ -5,15 +5,35 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body onLoad="myFunction({{ list }})">
 
 
 <h2> Welcome! </h2>
 
 <button onclick="window.location.href='{{ url_for('create_survey.createSurveyPage') }}'">Make Survey</button>
 
+<br />
+<br />
 
 
+
+
+<div id="surveys"></div>
+
+<script>
+
+function myFunction(list) {
+    list=list.sort();
+    var x ="", i;
+    for (i=0; i<list.length; i++) {
+        x = x + "<ul>" + list[i]
+        x = x + "<br /> <pre> Take Survey: " + "<a href="+ window.location + "survey/" + list[i] +">" + window.location + "survey/" + list[i] + "</a>"
+        x = x + "<br /> <pre> View Results:" + "<a href="+ window.location + "survey/" + list[i] + "/results >" + window.location + "survey/" +  list[i] + "/results </a>"
+        x = x + "<br /> " + "</ul>";
+    }
+    document.getElementById("surveys").innerHTML = x;
+}
+</script>
 
 
 </body>
