@@ -57,8 +57,9 @@ def render_results(name, question_number):
     question=questiontext
 
     df = pd.read_csv(csv_path)
-    table1 = df.to_html() #Render a table of the survey results in html.
-    table = table1[0:105] + "<th></th>" + table1[130:] #fix upper left cell called Unnamed: 0
+    df = df.rename(columns={"Unnamed: 0": " "})
+    table = df.to_html() #Render a table of the survey results in html.
+    #table = table1[0:105] + "<th></th>" + table1[130:] #fix upper left cell called Unnamed: 0
 
 
     downloadlinknormal = request.url.split('/survey')[0]
