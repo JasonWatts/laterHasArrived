@@ -54,19 +54,32 @@ def handle_data(name, person_id, question_number):
     person = person_id
     choices = request.form.getlist('choices') #Get the list of people the participant knows.
     questiontext, inputfilepath, participants, intermediatefilepath = GetFormFromName(name, SURVEY_DIR, question_number)
-    with open(intermediatefilepath, "a") as out:
-        out.write("{}: {}\n".format(person, ', '.join(choices))) #Write the response as a new line into an intermediate file, in the format "participant: name1, name2, name3"
 
     ## read number of questions
     number_of_questions = getNumberOfQuestions(name, SURVEY_DIR)
 
-    ## Go to next question when done
+    print('Choices: ' + str(choices))
+
     next_q = int(question_number) + 1
     redirectlink = request.url.replace('{}/handle_data'.format(question_number), str(next_q))
 
-    if int(question_number) < number_of_questions:
-        return redirect(redirectlink)
-    return "Thank you for your response! Please return to the SurveyMonkey tab"
+    if choices == []:
+
+        if int(question_number) < number_of_questions:
+            return redirect(redirectlink)
+        return "Thank you for your response! Please return to the SurveyMonkey tab"
+
+    else:
+        with open(intermediatefilepath, "a") as out:
+            out.write("{}: {}\n".format(person, ', '.join(choices))) #Write the response as a new line into an intermediate file, in the format "participant: name1, name2, name3"
+
+
+
+        ## Go to next question when done
+
+        if int(question_number) < number_of_questions:
+            return redirect(redirectlink)
+        return "Thank you for your response! Please return to the SurveyMonkey tab"
 
 
 
