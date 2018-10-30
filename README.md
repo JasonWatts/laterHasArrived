@@ -25,7 +25,7 @@ currently second/subsequent questions in an existing survey generate errors (Wal
 
 1. ~~Create a pick a name page before a user takes the survey with a next button which brings you to the actual questions of the survey~~
 
-1. ~~Re-format Hyperlinks after survey creation to be in multiple paragraphs instead of one long line ~~
+1. ~~Re-format Hyperlinks after survey creation to be in multiple paragraphs instead of one long line~~
 
 1. ~~Lost results for secondary questions (file not found error when admin tries to view results)~~
 
