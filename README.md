@@ -10,6 +10,8 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 
 1. Check view for many names in adjancency matrix 
 
+1. Remove print statements
+
 1. [done: merge updateHomepage2] Update home page
 
 1. [done: merge fixCSV] Fix “unnamed cell” in upper left hand corner of results table on the results page
