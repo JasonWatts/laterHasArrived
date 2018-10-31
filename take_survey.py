@@ -58,7 +58,6 @@ def handle_data(name, person_id, question_number):
     ## read number of questions
     number_of_questions = getNumberOfQuestions(name, SURVEY_DIR)
 
-    print('Choices: ' + str(choices))
 
     next_q = int(question_number) + 1
     redirectlink = request.url.replace('{}/handle_data'.format(question_number), str(next_q))
