@@ -5,9 +5,15 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+ <style media="screen">
+body {
+  background-color: #A4D2D3;
+}
+
+  </style>
 <body onLoad="myFunction({{ list }})">
-
-
+        <!--<body style="background-color:powderblue;">-->
+	<center>
 <h2> Welcome! </h2>
 
 <button onclick="window.location.href='{{ url_for('create_survey.createSurveyPage') }}'">Make Survey</button>
@@ -19,7 +25,7 @@
 
 
 <div id="surveys"></div>
-
+</center>
 <script>
 
 function myFunction(list) {

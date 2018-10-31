@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+  </head>
+   <style media="screen">
+body {
+  background-color:Powderblue;
+}
+  </style>
+ <center>
     <meta charset="UTF-8">
     <title>Results Main Page</title>
-</head>
 <body>
+<h2>The following following link(s) are the various recorded results to your survey.</h2>
+
+<p id="demo"></p>
+
+<script>
+document.getElementById("Links").innerHTML = x;
+</script>
 
 <ul>
   {% for elem in elems %}
