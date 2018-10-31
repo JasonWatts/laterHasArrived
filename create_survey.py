@@ -9,6 +9,7 @@ from flask_wtf import Form
 from flask_wtf.file import FileField
 from wtforms import TextField, SubmitField, IntegerField, TextAreaField
 from survey_folders import *
+import re
 
 class CreateSurvey(Form):
     survey_create_name = TextField('Please enter the title of this survey:')
@@ -35,6 +36,7 @@ def createSurveyPage():
     if request.method == 'POST': #If the form is being submitted, then process the data.
 
         folder_name = request.form['survey_create_name'].replace(' ', '_') #Retrieve the name of the survey and replace spaces with underscores.
+        folder_name = re.sub('[^0-9a-zA-Z_\']+', '', folder_name)
         path_to_new_folder = os.path.join(SURVEY_DIR, folder_name)
 
         questions = request.form['questions']
