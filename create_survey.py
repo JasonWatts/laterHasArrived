@@ -10,6 +10,7 @@ from flask_wtf.file import FileField
 from wtforms import TextField, SubmitField, IntegerField, TextAreaField
 from survey_folders import *
 import re
+import shutil
 
 class CreateSurvey(Form):
     survey_create_name = TextField('Please enter the title of this survey:')
@@ -19,7 +20,12 @@ class CreateSurvey(Form):
 
 def processQuestions(questions):
     list_of_questions = questions.split('\n')
+    list_of_questions = [e.replace('\r', '') for e in list_of_questions]
     list_of_questions = [e for e in list_of_questions if e != '']
+    print("Questions:")
+    print(list_of_questions)
+    print("_-------")
+
     return list_of_questions, len(list_of_questions)
 
 create_home = Blueprint('home', __name__, template_folder='templates')
@@ -37,11 +43,29 @@ def createSurveyPage():
 
         folder_name = request.form['survey_create_name'].replace(' ', '_') #Retrieve the name of the survey and replace spaces with underscores.
         folder_name = re.sub('[^0-9a-zA-Z_\']+', '', folder_name)
+
+        if str(folder_name) == '':
+            return "Unable to Create Survey, You didn't give a valid title"
+
         path_to_new_folder = os.path.join(SURVEY_DIR, folder_name)
+
+        # Deletes folder if it already exists:
+
+        try:
+            shutil.rmtree(path_to_new_folder)
+        except:
+            print('')
 
         questions = request.form['questions']
 
+
+        if str(questions) == '':
+            return "Unable to Create Survey, You didn't write down any questions"
+
         questions, number_of_questions = processQuestions(questions)
+
+        if questions == []:
+            return "Unable to Create Survey, You didn't write down any questions"
 
         if questions == 'Not the right number of questions':
             return render_template(ADMIN_TEMPLATE, form=form)
