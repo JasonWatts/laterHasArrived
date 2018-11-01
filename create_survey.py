@@ -10,7 +10,7 @@ from flask_wtf.file import FileField
 from wtforms import TextField, SubmitField, IntegerField, TextAreaField
 from survey_folders import *
 import re
-import shutil
+
 
 class CreateSurvey(Form):
     survey_create_name = TextField('Please enter the title of this survey:')
@@ -51,10 +51,9 @@ def createSurveyPage():
 
         # Deletes folder if it already exists:
 
-        try:
-            shutil.rmtree(path_to_new_folder)
-        except:
-            print('')
+
+        if os.path.isdir(path_to_new_folder) == True:
+            return "Survey Has already been created, try a new name"
 
         questions = request.form['questions']
 
