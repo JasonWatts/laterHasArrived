@@ -22,10 +22,6 @@ def processQuestions(questions):
     list_of_questions = questions.split('\n')
     list_of_questions = [e.replace('\r', '') for e in list_of_questions]
     list_of_questions = [e for e in list_of_questions if e != '']
-    print("Questions:")
-    print(list_of_questions)
-    print("_-------")
-
     return list_of_questions, len(list_of_questions)
 
 create_home = Blueprint('home', __name__, template_folder='templates')
@@ -50,8 +46,6 @@ def createSurveyPage():
         path_to_new_folder = os.path.join(SURVEY_DIR, folder_name)
 
         # Deletes folder if it already exists:
-
-
         if os.path.isdir(path_to_new_folder) == True:
             return "Survey Has already been created, try a new name"
 
