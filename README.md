@@ -5,9 +5,9 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 # TODO:
 
 
-1. [Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya) --> center branch
+1. ~~[Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya) --> center branch~~
 
-1. Remove print statements
+1. ~~Remove print statements~~
 
 1. ~~Filter duplicate name from possible selections given the answer “the who you are question”, one could do this by populating the drop down menu with “a non-name value” (ie --choose name---). Currently the default name still appears in the possible selection if the selection is never changed. (done with JavaScript, doing with python)~~ 
 
@@ -69,6 +69,7 @@ for each of the available URLs (Kyle)~~
 
 # Requirements
 Python 3.5 or later: https://www.python.org/downloads/
+Pip: https://pip.pypa.io/en/stable/installing/
 
 In order to run this application you first need to pip3 install these libraries:
 
@@ -76,7 +77,6 @@ In order to run this application you first need to pip3 install these libraries:
 pip3 install pandas --user
 pip3 install flask
 pip3 install flask-wtf
-csv file of names with between 2-4 columns
 ```
 
 # Contributors
@@ -95,7 +95,7 @@ Maya
 
 # CSV
 
-In order for the program to run the csv must be named "names.csv" and be formatted in the following manner (last name,first name,unique-id1,unique-id2) where unique-id1 and unique-id2 are optional addtional detalis (major,year, etc.) but not required 
+In order for the program to run the csv must be formatted in the following manner (last name,first name,unique-id1,unique-id2) where unique-id1 and unique-id2 are optional addtional detalis (major,year, etc.) but not required 
 
 
 # Running
