@@ -8,7 +8,7 @@ Web app that lets you take a simple survey then creates an adjacency matrix from
 1. add additional instructional guidance on the "select CSV file with names" (No Extra Rows)
 1. add return-to-results page link after displaying results for one question
 1. file finder for csv: can it filter to only .csv?
-1. add clear button to search bar
+1. add a "clear" button to search bar
 
 1. ~~[Create/Respond/Results] Improve appearance fonts/margins/styling/... (M'kya and Maya) --> center branch~~
 
