@@ -64,6 +64,12 @@ for each of the available URLs (Kyle)~~
 1. ~~Hyperlink page formatting (M'Kya, Kaylie, Drew, Maya)~~
 1. ~~Fix extra information for duplicate names (Tanner, Jared)~~
 
+1. add question id to download csv file
+1. add additional instructional guidance on the "select CSV file with names" (No Extra Rows)
+1. add return-to-results page link after displaying results for one question
+1.file finder for csv: can it filter to only .csv?
+1.add clear button to search bar
+
 
 
 
