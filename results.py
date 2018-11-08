@@ -59,9 +59,10 @@ def render_results(name, question_number):
     downloadlinkdirectional = downloadlinknormal + "/downloadCSV-directional/{}/{}".format(name, question_number)
 
     downloadlinknormal = downloadlinknormal + '/downloadCSV/{}/{}'.format(name, question_number)
+    resultsURL = request.url[:-1]
 
 
-    return render_template(RESULTS_TEMPLATE, table=table, title=title,
+    return render_template(RESULTS_TEMPLATE, table=table, title=title, url=resultsURL,
             question=question, downloadlinknormal=downloadlinknormal, downloadlinkdirectional=downloadlinkdirectional)
 
 

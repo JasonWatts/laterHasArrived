@@ -14,6 +14,8 @@ body {
 <body>
     <h1> {{ title }} </h1>
     <h4> {{ question }} </h4>
+    <a href="{{ url }}">Return to Results</a>
+    <br />
     <a href="{{ downloadlinknormal }}"><button type="button">Download CSV</button></a>
     <a href="{{ downloadlinkdirectional }}"><button type="button">Download Directional CSV</button></a>
     {{ table | safe }}
