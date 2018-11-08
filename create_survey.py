@@ -6,7 +6,7 @@
 
 from flask import Blueprint, render_template, request
 from flask_wtf import Form
-from flask_wtf.file import FileField
+from flask_wtf.file import FileField, FileAllowed, FileRequired
 from wtforms import TextField, SubmitField, IntegerField, TextAreaField
 from survey_folders import *
 import re
@@ -15,7 +15,7 @@ import re
 class CreateSurvey(Form):
     survey_create_name = TextField('Please enter the title of this survey:')
     questions = TextAreaField('Please enter the questions you would like to answer, press enter to split the questions:')
-    csv_upload = FileField('Upload CSV File')
+    csv_upload = FileField('Upload CSV File', validators=[FileRequired(), FileAllowed(['csv'], 'CSV files only')])
     submit = SubmitField('Create Survey')
 
 def processQuestions(questions):
@@ -35,7 +35,10 @@ def homepage():
 create_survey = Blueprint('create_survey', __name__, template_folder='templates')
 @create_survey.route('/createSurvey', methods=['get', 'post'])
 def createSurveyPage():
+    form = CreateSurvey()  # If the form is not being submitted, then create a new form and serve it to the user.
     if request.method == 'POST': #If the form is being submitted, then process the data.
+        if not form.validate_on_submit():
+            return ("Unable to upload names file - please make sure it is a csv file.")
 
         folder_name = request.form['survey_create_name'].replace(' ', '_') #Retrieve the name of the survey and replace spaces with underscores.
         folder_name = re.sub('[^0-9a-zA-Z_\']+', '', folder_name)
@@ -83,7 +86,7 @@ def createSurveyPage():
             see_results_link=see_results_link )
         return "Unable to upload names file."
 
-    form = CreateSurvey() #If the form is not being submitted, then create a new form and serve it to the user.
+
     return render_template(ADMIN_TEMPLATE, form=form)
 
 
