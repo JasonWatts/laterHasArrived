@@ -27,7 +27,7 @@ ul {
     {{ form.hidden_tag() }}
     <p>
       <b>{{ questiontext }}</b><br>
-      {{ form.search(onkeyup="filter()", placeholder="Search...") }}<br>
+      {{ form.search(onkeyup="filter()", placeholder="Search...") }}<button type="button" onclick="clearsearch()">clear</button><br>
       <div style="width: 600px; height: 200px; overflow-y: scroll;">
       {{ form.choices() }}
       </div>
@@ -52,6 +52,11 @@ function filter() {
       a[i].style.display = "";
     }
   }
+}
+
+function clearsearch() {
+  input = document.getElementById("searchbar");
+  input.value = ''
 }
 </script>
 
