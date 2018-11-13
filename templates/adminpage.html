@@ -28,7 +28,11 @@ body {
   <p>
     <b>Please upload a .csv file containing the names of survey participants (2-4 columns, no extra rows):</b>
   </p>
-  {{ form.csv_upload }}
+
+
+
+  <input type="file" name="csv_upload" accept=".csv" required>
+
 
   <h3> Submit to Create Survey: </h3>
   <p>{{ form.submit() }}</p>
