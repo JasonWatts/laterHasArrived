@@ -21,12 +21,14 @@ document.getElementById("Links").innerHTML = x;
 </script>
 
 <ul>
-  {% for elem in elems %}
-  <li><a href="{{elem}}"><b>{{elem}}</b> </a></li>
+  {% for qName in qDict %}
+      <h6>{{ qName }}</h6>
+  <li><a href="{{qDict[qName]}}"><b>{{qDict[qName]}}</b> </a></li>
   <br>
   <br>
   {% endfor %}
 </ul>
+
 
 
 

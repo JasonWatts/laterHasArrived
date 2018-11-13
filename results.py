@@ -20,7 +20,7 @@ results = Blueprint('results', __name__, template_folder='templates')
 @results.route('/survey/<name>/results')
 def results_page(name):
     SurveyFilePath = os.path.join(SURVEY_DIR, name)
-    fileList = os.listdir(SurveyFilePath)
+
     number_of_questions = getNumberOfQuestions(name, SURVEY_DIR)
 
     question_numbers = [e for e in range(0, number_of_questions+1)]
@@ -30,8 +30,14 @@ def results_page(name):
         url = request.url
 
     question_links = [url + str(e) for e in question_numbers]
+    question_texts = {}
+    for i in question_numbers:
+        questionnamepath = os.path.join(SurveyFilePath, str(i) + QUESTION_FILE)
+        file = open(questionnamepath, 'r')
+        questionnametxt = file.read()
+        question_texts[questionnametxt] = question_links[i]
 
-    return render_template("results_main.html", elems=question_links)
+    return render_template("results_main.html", qDict = question_texts)
 
 
 
