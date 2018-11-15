@@ -35,13 +35,28 @@
 
 <center>
 <h2 id="mainheader" >Thanks! You can now copy and paste the following link to distribute your survey</h2>
-<p><a href="{{ link_to_go_to }}">{{ link_to_go_to }}</a></p>
 
+<p>{{ link_to_go_to }}</p>
+<button id="dummy" onclick="copyText()">Copy text</button>
 
 <br/>
 
 <a href="{{ see_results_link }}" role="button">
 <button type="button" name="button"><font size = "5">Your Survey Results</font></button></a>
  <!-- Results lInk -->
+<script>
+     function copyText() {
+         var temp = document.createElement('textarea');
+         temp.value = '{{ link_to_go_to }}';
+         temp.setAttribute('readonly', '');
+         temp.style.position = 'absolute';
+         temp.style.left = '-9999px';
+         document.body.appendChild(temp);
+         temp.select();
+         document.execCommand('copy');
+         document.body.removeChild(temp);
+         document.getElementById("dummy").innerHTML = 'Copied!';
+     }
+</script>
 </body>
 </html>
