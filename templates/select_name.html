@@ -8,23 +8,69 @@
 .maindiv{
   padding: 20px;
   margin-left: 20px;
-  background-color: Powderblue;
   border-radius: 10px;
-
 }
+
+
+#topnavid{
+  overflow: hidden;
+  background-color: #2d3246;
+  /*background: linear-gradient(to bottom right, #001333, #00276b);*/
+  transition: 0.3s;
+  height: 7vh;
+}
+
+.question_label {
+  padding-bottom: 20px;
+}
+
+.maindiv{
+  background-color: #f2f2f2;
+  padding: 50px;
+  margin-top: 20px;
+}
+
+.selectnamearea{
+  margin-bottom: 20px;
+}
+
+.submit {
+  background-color:#5cbf2a;
+	border-radius:28px;
+	border:1px solid #20b347;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding: 10px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+  transition: .2s;
+}
+
+
+
 </style>
-<center>`
+
 <body onLoad="placeholder()">
+
+  <div class="topnav" id="topnavid">
+  </div>
+  <center>`
+<br><br>
+
 
 <h3>Please Select Your Name</h3>
 
 <div class="maindiv">
   <form method="post" novalidate>
-    {{ form.name.label }}
+    {{ form.name.label(class_="question_label") }}
     <br>
-    {{ form.name(size=1, onchange="enable()") }}
+    {{ form.name(size=1, class_="selectnamearea", onchange="enable()") }}
     <br>
-    {{ form.submit() }}
+    {{ form.submit(class_="submit") }}
 
   </form>
 </div>
