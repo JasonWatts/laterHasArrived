@@ -39,7 +39,6 @@
 	border-radius:28px;
 	border:1px solid #20b347;
 	display:inline-block;
-	cursor:pointer;
 	color:#ffffff;
 	font-family:Arial;
 	font-size:17px;
@@ -49,6 +48,8 @@
 	text-shadow:0px 1px 0px #2f6627;
   transition: .2s;
 }
+
+
 
 
 
@@ -91,6 +92,8 @@ function placeholder() {
 function enable() {
   var submit = document.getElementById("submitbutton");
   submit.disabled = false;
+  submit.style.backgroundColor = "#5cbf2a";
+  submit.style.cursor = "pointer";
 }
 </script>
 

@@ -5,34 +5,68 @@
  </head>
 
 <style media="screen">
-body {
-  background-color: #A4D2D3;
-}
-.maindiv{
-  padding: 20px;
-  margin-left: 20px;
-  background-color: #A4D4D3;
-  border-radius: 10px;
 
+.maindiv{
+  margin: 20px;
+  width: 50vw;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
 }
+
+.submit {
+  background-color:#20b347;
+  cursor:pointer;
+	border-radius:28px;
+	border:1px solid #20b347;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding: 10px 20px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+  transition: .2s;
+}
+
+.submit:hover{
+  background-color: #4e42f4;
+}
+
+
+#topnavid{
+  overflow: hidden;
+  background-color: #2d3246;
+  /*background: linear-gradient(to bottom right, #001333, #00276b);*/
+  transition: 0.3s;
+  height: 7vh;
+}
+
 ul {
   list-style-type: none;
 }
 </style>
 
 <body>
+
+  <div class="topnav" id="topnavid">
+    <h2 style="color: white; margin:5px;"></h2>
+  </div>
+
 	<center>
 <div class="maindiv">
   <form action="{{ redirectlink }}" method="post" novalidate>
     {{ form.hidden_tag() }}
     <p>
-      <b>{{ questiontext }}</b><br>
+      <b>{{ questiontext }}</b><br><br>
       {{ form.search(onkeyup="filter()", placeholder="Search...") }}<button type="button" onclick="clearsearch()">clear</button><br>
       <div style="width: 600px; height: 200px; overflow-y: scroll;">
       {{ form.choices() }}
       </div>
     </p>
-    <p>{{ form.submit() }}</p>
+    <p>{{ form.submit(class_="submit") }}</p>
   </form>
 </div>
 
@@ -40,24 +74,33 @@ ul {
 <!--Script based on a significantly modified example from W3 schools (https://www.w3schools.com/howto/howto_js_filter_dropdown.asp)-->
 <script>
 function filter() {
+  console.log("Filter is run");
   var input, filter, ul, li, a, i;
   input = document.getElementById("searchbar");
   filter = input.value.toUpperCase();
   selector = document.getElementById("selector");
   a = selector.getElementsByTagName("li");
   for (i = 0; i < a.length; i++) {
-    if (a[i].innerHTML.toUpperCase().indexOf(filter) === -1) {
+    console.log(a[i].textContent);
+    if (a[i].textContent.toUpperCase().indexOf(filter) === -1) {
       a[i].style.display = "none";
     } else {
       a[i].style.display = "";
+      console.log(a[i].innerHTML);
     }
   }
 }
 
 function clearsearch() {
+  var input, li
   input = document.getElementById("searchbar");
-  input.value = ''
-}
+  input.value = '';
+  a = selector.getElementsByTagName("li");
+  for (i = 0; i < a.length; i++) {
+      a[i].style.display = "";
+    }
+  }
+
 </script>
 
 </body>
