@@ -15,7 +15,7 @@ import re
 class CreateSurvey(Form):
     survey_create_name = TextField('Please enter the title of this survey:')
     questions = TextAreaField('Please enter the questions you would like to answer, press enter to split the questions:')
-    csv_upload = FileField('Upload CSV File', validators=[FileRequired(), FileAllowed(['csv'], 'CSV files only')])
+    csv_upload = FileField('Upload CSV File')
     submit = SubmitField('Create Survey')
 
 def processQuestions(questions):
@@ -37,8 +37,6 @@ create_survey = Blueprint('create_survey', __name__, template_folder='templates'
 def createSurveyPage():
     form = CreateSurvey()  # If the form is not being submitted, then create a new form and serve it to the user.
     if request.method == 'POST': #If the form is being submitted, then process the data.
-        if not form.validate_on_submit():
-            return ("Unable to upload names file - please make sure it is a csv file.")
 
         folder_name = request.form['survey_create_name'].replace(' ', '_') #Retrieve the name of the survey and replace spaces with underscores.
         folder_name = re.sub('[^0-9a-zA-Z_\']+', '', folder_name)

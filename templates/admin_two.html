@@ -2,7 +2,6 @@
 <html>
   <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-  </head>
   <head>
   <title>Survey Submitted</title>
   <meta charset="utf-8">
@@ -12,18 +11,31 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
   <style media="screen">
-body {
-  background-color: #A4D2D3;
-}
+
+  #topnavid{
+    overflow: hidden;
+    background-color: #2d3246;
+    /*background: linear-gradient(to bottom right, #001333, #00276b);*/
+    transition: 0.3s;
+    height: 7vh;
+  }
+
+
 
   </style>
-
-
-
 </head>
+
+
 <body>
+
+  <div class="topnav" id="topnavid">
+    <h2 style="color: white; margin:5px;"></h2>
+  </div>
+
+
 <center>
 <h2 id="mainheader" >Thanks! You can now copy and paste the following link to distribute your survey</h2>
+
 <p>{{ link_to_go_to }}</p>
 <button id="dummy" onclick="copyText()">Copy text</button>
 

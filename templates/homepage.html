@@ -7,24 +7,71 @@
 </head>
  <style media="screen">
 body {
-  background-color: #A4D2D3;
+
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #2d3246;
+  /*background: linear-gradient(to bottom right, #001333, #00276b);*/
+  transition: 0.3s;
+  height: 7vh;
+}
+
+
+.CenterDiv{
+  margin-top: 5vh;
+  padding: 20px;
+}
+
+#myButton {
+  background-color:#5cbf2a;
+	border-radius:28px;
+	border:1px solid #20b347;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding: 20px 40px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+  transition: .2s;
+}
+
+#myButton:hover{
+  background-color: #4e42f4;
+}
+
+pre {
+  font-size: 18px;
+}
+
+h6 {
+  font-size: 23px;
 }
 
   </style>
 <body onLoad="myFunction({{ list }})">
         <!--<body style="background-color:powderblue;">-->
 	<center>
-<h2> Welcome! </h2>
+<div class="topnav">
+</div>
 
-<button onclick="window.location.href='{{ url_for('create_survey.createSurveyPage') }}'">Make Survey</button>
+
+<div class="CenterDiv">
+  <h1> Welcome! </h1>
+  <br>
+  <button id="myButton" onclick="window.location.href='{{ url_for('create_survey.createSurveyPage') }}'">Make Survey</button>
+
+</div>
 
 <br />
-<br />
 
 
 
-
-<div id="surveys"></div>
+<div id="surveys" style="border-radius: 20px; background-color: #f2f2f2; width: 70%; padding: 20px; margin-bottom: 20px;"></div>
 </center>
 <script>
 
@@ -32,7 +79,7 @@ function myFunction(list) {
     list=list.sort();
     var x ="", i;
     for (i=0; i<list.length; i++) {
-        x = x + "<ul>" + list[i]
+        x = x + "<ul>  <h6>" + list[i] + "</h6>"
         x = x + "<br /> <pre> Take Survey: " + "<a href="+ window.location + "survey/" + list[i] +">" + window.location + "survey/" + list[i] + "</a>"
         x = x + "<br /> <pre> View Results:" + "<a href="+ window.location + "survey/" + list[i] + "/results >" + window.location + "survey/" +  list[i] + "/results </a>"
         x = x + "<br /> " + "</ul>";
